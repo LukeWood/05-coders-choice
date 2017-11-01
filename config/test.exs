@@ -8,12 +8,3 @@ config :bouncingbullet, BouncingbulletWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :bouncingbullet, Bouncingbullet.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "bouncingbullet_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox

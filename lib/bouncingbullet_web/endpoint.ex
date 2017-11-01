@@ -36,7 +36,7 @@ defmodule BouncingbulletWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_bouncingbullet_key",
-    signing_salt: "foOQzwIa"
+    signing_salt: "UVW6mPY4"
 
   plug BouncingbulletWeb.Router
 

@@ -5,14 +5,10 @@
 # is restricted to this project.
 use Mix.Config
 
-# General application configuration
-config :bouncingbullet,
-  ecto_repos: [Bouncingbullet.Repo]
-
 # Configures the endpoint
 config :bouncingbullet, BouncingbulletWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "7pxuLwp+Ee6gKkLgKcLPsGoFOgffIZCtrFLHVvAw4z6FAV+95TL3Oj8b/clnmn03",
+  secret_key_base: "cOGYKoZhNbqMVf+jxN2MMDkyWn7rVn9tWUPafYeMSadcq6OSEcZO4UsVh/5OoR3u",
   render_errors: [view: BouncingbulletWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Bouncingbullet.PubSub,
            adapter: Phoenix.PubSub.PG2]

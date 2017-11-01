@@ -26,11 +26,7 @@ defmodule BouncingbulletWeb.ChannelCase do
   end
 
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bouncingbullet.Repo)
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Bouncingbullet.Repo, {:shared, self()})
-    end
+  setup _tags do
     :ok
   end
 
