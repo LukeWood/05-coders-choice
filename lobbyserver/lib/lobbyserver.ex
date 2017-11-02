@@ -1,8 +1,8 @@
 defmodule LobbyServer do
-  
+
   use Application
 
   def start_link do
-    GenServer.start_link(, [], )
+    LobbyServer.Supervisor.start_link(LobbyServer)
   end
 end
