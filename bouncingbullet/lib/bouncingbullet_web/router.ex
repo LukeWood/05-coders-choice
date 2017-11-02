@@ -14,13 +14,9 @@ defmodule BouncingbulletWeb.Router do
   end
 
   scope "/", BouncingbulletWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BouncingbulletWeb do
-  #   pipe_through :api
-  # end
 end
