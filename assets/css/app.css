@@ -1,1 +1,8 @@
 /* This file is for your main application css. */
+main {
+  text-align: center;
+}
+
+canvas {
+  background-color: black;
+}
