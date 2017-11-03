@@ -1,7 +1,12 @@
 import "phoenix_html"
 
 //import socket from "./socket"
-import draw from './draw';
-import Player from './player';
+import draw           from './game/draw';
+import Player         from './game/player';
+import render_lobbies from './index/render_lobbies';
 
-draw([new Player(10, 10, '#0088ff')]);
+render_lobbies(
+  [{
+    'name': 'luke'
+  }]
+);

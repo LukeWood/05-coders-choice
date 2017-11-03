@@ -1,2 +1,8 @@
-<canvas id="game" width="500" height="500">
-</canvas>
+<ul id="lobby-container">
+  <!--
+  TODO(LukeWood) we should make this
+  request the lobby via socket
+  load everything then re-render
+  when we get updates
+  -->
+</div>
