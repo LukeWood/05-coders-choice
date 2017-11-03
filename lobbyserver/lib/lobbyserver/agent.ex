@@ -7,7 +7,7 @@ defmodule LobbyServer.Agent do
   end
 
   def add_lobby(lobby) do
-    Agent.update(@name, fn map -> Map.put(map, lobby, create_lobby()) end)
+    Agent.update(@name, fn map -> Map.put_new(map, lobby, create_lobby()) end)
   end
 
   def list_lobbies() do
