@@ -3,7 +3,8 @@ defmodule LobbyServer.Supervisor do
   def start_link(name) do
     import Supervisor.Spec
     children = [
-      worker(LobbyServer.Agent, [])
+      worker(LobbyServer.Agent,   []),
+      worker(LobbyServer.Server,  [])
     ]
     opts = [
       strategy: :one_for_one,

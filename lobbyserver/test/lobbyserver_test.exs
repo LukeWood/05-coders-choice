@@ -1,8 +1,8 @@
 defmodule LobbyserverTest do
   use ExUnit.Case
-  doctest Lobbyserver
 
-  test "greets the world" do
-    assert Lobbyserver.hello() == :world
+  test "create a lobby" do
+    assert LobbyServer.new_lobby("Luke") == :ok
   end
+
 end
