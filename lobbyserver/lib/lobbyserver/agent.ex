@@ -18,6 +18,11 @@ defmodule LobbyServer.Agent do
     Agent.get(@name, fn lobby_map -> Map.get(lobby_map, lobby) end)
   end
 
+  def delete_lobby(lobby) do
+    Agent.update(@name, fn map -> Map.delete(map, lobby) end)
+  end
+
+  #TODO(LukeWood) This should actually start a new lobby not just a list
   def create_lobby() do
     Agent.start_link(fn -> [] end)
   end

@@ -15,6 +15,11 @@ defmodule LobbyServer.Server do
     LobbyServer.Agent.list_lobbies
   end
 
+  def handle_cast({:delete_lobby, lobby}, _) do
+    LobbyServer.Agent.delete_lobby(lobby)
+    {:noreply, lobby}
+  end
+
   def reply_good(param) do
     {:reply, param, param}
   end
