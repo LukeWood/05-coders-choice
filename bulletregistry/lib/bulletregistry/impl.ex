@@ -1,6 +1,5 @@
 defmodule BulletRegistry.Impl do
 
-
   def bulletUpdate(bullet = %{"direction" => :left}) do
     Map.update!(bullet, :x, fn x -> x - 1 end)
   end
@@ -23,9 +22,15 @@ defmodule BulletRegistry.Impl do
   def tick(state, timestamp) do
     state |>
     Map.update!(:bullets, &(&1.expiration > timestamp)) |>
-    Map.update!(:bullets, &bulletUpdate/1)
+    Map.update!(:bullets, &bulletUpdate/1) |>
+    Map.set(:timestamp, timestamp)
   end
 
-
+  def new_registry do
+    %{
+      bullets:   [],
+      timestamp: 0
+    }
+  end
 
 end
