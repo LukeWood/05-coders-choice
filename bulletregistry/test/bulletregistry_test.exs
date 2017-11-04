@@ -31,4 +31,11 @@ defmodule BulletRegistryTest do
     assert Enum.at(state.bullets, 2).y ==  1
   end
 
+  test "bullets are removed after lifetime" do
+    state = BulletRegistry.new_registry |>
+    BulletRegistry.tick(0, [%BulletRegistry.Bullet{}]) |>
+    BulletRegistry.tick(BulletRegistry.Bullet.lifetime() + 1)
+    assert Enum.count(state.bullets) == 0
+  end
+
 end

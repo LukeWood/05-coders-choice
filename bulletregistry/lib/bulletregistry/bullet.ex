@@ -9,6 +9,10 @@ defmodule BulletRegistry.Bullet do
     direction:  :left
   ]
 
+  def lifetime do
+    @lifetime
+  end
+
   def create_bullet(%{timestamp: timestamp, direction: direction, x: x, y: y}) do
     create_bullet(timestamp, direction, x, y)
   end

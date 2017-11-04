@@ -6,24 +6,24 @@ defmodule BulletRegistry.Impl do
   # bullets should move by dx and dy defined by:
   # (timestamp - last_timestamp)/1000 * bullet_speed
 
-  def bullet_update(bullet = %{:direction => :left}) do
+  defp bullet_update(bullet = %{:direction => :left}) do
     Map.update!(bullet, :x, fn x -> x - @bullet_speed end)
   end
-  def bullet_update(bullet = %{:direction => :right}) do
+  defp bullet_update(bullet = %{:direction => :right}) do
     Map.update!(bullet, :x, fn x -> x + @bullet_speed end)
   end
-  def bullet_update(bullet = %{:direction => :up}) do
+  defp bullet_update(bullet = %{:direction => :up}) do
     Map.update!(bullet, :y, fn y -> y - @bullet_speed end)
   end
-  def bullet_update(bullet = %{:direction => :down}) do
+  defp bullet_update(bullet = %{:direction => :down}) do
     Map.update!(bullet, :y, fn y -> y + @bullet_speed end)
   end
 
-  def update_all_bullets(bullets) do
+  defp update_all_bullets(bullets) do
     Enum.map(bullets, &bullet_update/1)
   end
 
-  def filter_bullets(bullets, timestamp) do
+  defp filter_bullets(bullets, timestamp) do
     bullets |>
     Enum.filter(&(Map.get(&1, :expiration) > timestamp))
   end
