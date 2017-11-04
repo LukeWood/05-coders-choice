@@ -22,7 +22,13 @@ defmodule BulletRegistryTest do
   test "tick moves bullets" do
     state = BulletRegistry.new_registry |>
     BulletRegistry.tick(0, [%BulletRegistry.Bullet{}]) |>
-    BulletRegistry.tick(1000, )
+    BulletRegistry.tick(1000, [%BulletRegistry.Bullet{}]) |>
+    BulletRegistry.tick(2000, [%BulletRegistry.Bullet{direction: :down}])
+
+    assert Enum.at(state.bullets, 0).x == -3
+    assert Enum.at(state.bullets, 1).x == -2
+    assert Enum.at(state.bullets, 2).x ==  0
+    assert Enum.at(state.bullets, 2).y ==  1
   end
 
 end

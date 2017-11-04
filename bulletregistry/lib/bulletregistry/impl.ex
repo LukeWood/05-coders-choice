@@ -1,9 +1,10 @@
 defmodule BulletRegistry.Impl do
 
-  # TODO(lukewood) this should move bullets
-  # by (timestamp-last_timestamp)/1000 * speed
-
   @bullet_speed 1
+
+  #TODO(lukewood)
+  # bullets should move by dx and dy defined by:
+  # (timestamp - last_timestamp)/1000 * bullet_speed
 
   def bullet_update(bullet = %{:direction => :left}) do
     Map.update!(bullet, :x, fn x -> x - @bullet_speed end)
@@ -15,7 +16,7 @@ defmodule BulletRegistry.Impl do
     Map.update!(bullet, :y, fn y -> y - @bullet_speed end)
   end
   def bullet_update(bullet = %{:direction => :down}) do
-    Map.update!(bullet, :y, fn y -> y - @bullet_speed end)
+    Map.update!(bullet, :y, fn y -> y + @bullet_speed end)
   end
 
   def update_all_bullets(bullets) do
