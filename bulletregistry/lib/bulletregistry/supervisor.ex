@@ -1,9 +1,11 @@
 defmodule BulletRegistry.Supervisor do
 
+  alias BulletRegistry.ChildrenRegistry, as: ChildrenRegistry
+
   def start_child_registry do
     import Supervisor.Spec
     children =  [
-      worker(BulletRegistry.ChildrenRegistry, [])
+      worker(ChildrenRegistry, [])
     ]
     opts = [
       strategy: :one_for_one,
@@ -15,8 +17,8 @@ defmodule BulletRegistry.Supervisor do
 
   def new_registry do
     {:ok, par_pid} = GenServer.start_link(BulletRegistry.Server, BulletRegistry.Impl.new_registry)
-    {:ok, change_pid} = ChangeList.start_link
-
+    {:ok, child_pid} = BulletRegistry.ChangeList.start_link
+    ChildrenRegistry.register_child(par_pid, child_pid)
     par_pid
   end
 

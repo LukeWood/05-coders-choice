@@ -1,4 +1,5 @@
 defmodule BulletRegistry.Client do
+
   def tick(pid\\BulletRegistry) do
     GenServer.call(pid, {:tick})
   end

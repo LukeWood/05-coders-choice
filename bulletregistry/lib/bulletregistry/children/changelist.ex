@@ -3,9 +3,10 @@ defmodule BulletRegistry.ChangeList do
   @name :BulletChangeList
 
   def start_link() do
-  end
-  def start_link do
     Agent.start_link(fn -> [] end)
+  end
+  def start_link(name) do
+    Agent.start_link(fn -> [] end, name: name)
   end
 
   def add(item, pid\\@name) do
