@@ -2,15 +2,17 @@ defmodule ImplTest.Server do
   use ExUnit.Case
 
   test "the server boots into a new state" do
-    BulletRegistry.tick()
-    assert Enum.count((BulletRegistry.peek).bullets) == 0
+    pid = BulletRegistry.new_registry
+    BulletRegistry.tick(pid)
+    assert Enum.count((BulletRegistry.peek(pid)).bullets) == 0
   end
 
   test "bullets can be added to the server" do
-    BulletRegistry.tick()
-    BulletRegistry.add_bullet(0, 0, :up)
-    BulletRegistry.tick()
-    assert Enum.count((BulletRegistry.peek).bullets) == 1
+    pid = BulletRegistry.new_registry
+    BulletRegistry.tick(pid)
+    BulletRegistry.add_bullet(0, 0, :up, pid)
+    BulletRegistry.tick(pid)
+    assert Enum.count((BulletRegistry.peek(pid)).bullets) == 1
   end
 
 end
