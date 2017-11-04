@@ -18,6 +18,11 @@ defmodule BulletRegistry.Server do
     reply_good
   end
 
+  def handle_call({:peek}, _from, state) do
+    state |>
+    reply_good
+  end
+
   def handle_cast({:add_bullet, x, y, direction}, state) do
     ChangeList.add(
       %Bullet{x: x,
