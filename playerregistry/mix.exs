@@ -1,9 +1,9 @@
-defmodule Playerregistry.Mixfile do
+defmodule Bulletregistry.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :playerregistry,
+      app: :bulletregistry,
       version: "0.1.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
@@ -14,7 +14,8 @@ defmodule Playerregistry.Mixfile do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {BulletRegistry, []}
     ]
   end
 

@@ -4,7 +4,7 @@ defmodule BulletRegistry.Server do
   alias BulletRegistry.Bullet,          as: Bullet
   alias BulletRegistry.ChangeList,      as: ChangeList
   alias BulletRegistry.Impl,            as: Impl
-  alias BulletRegistry.ChildrenRegistry,as: ChildrenRegistry
+  alias KeyVal,                         as: ChildrenRegistry
 
   def start_link(name) do
     GenServer.start_link(BulletRegistry.Server,
@@ -23,7 +23,7 @@ defmodule BulletRegistry.Server do
   end
 
   def handle_call({:tick}, _from, state) do
-    pid = ChildrenRegistry.get_children(self())
+    pid = ChildrenRegistry.get(self())
     new_bullets = ChangeList.flush_changes(pid)
     state |>
     Impl.tick(:os.system_time(:millisecond), new_bullets) |>
@@ -36,7 +36,7 @@ defmodule BulletRegistry.Server do
   end
 
   def handle_cast({:add_bullet, x, y, direction}, state) do
-    pid = ChildrenRegistry.get_children(self())
+    pid = ChildrenRegistry.get(self())
     ChangeList.add(
       %Bullet{x: x,
               y: y,

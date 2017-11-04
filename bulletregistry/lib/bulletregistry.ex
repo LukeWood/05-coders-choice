@@ -7,7 +7,7 @@ defmodule BulletRegistry do
   defdelegate new_registry(),               to: BulletRegistry.Supervisor
 
   def start(_type, _opts) do
-    BulletRegistry.Supervisor.start_child_registry
+    
   end
 
 end

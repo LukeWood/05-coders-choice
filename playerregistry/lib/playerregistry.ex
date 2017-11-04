@@ -1,18 +1,13 @@
-defmodule Playerregistry do
-  @moduledoc """
-  Documentation for Playerregistry.
-  """
+defmodule PlayerRegistry do
 
-  @doc """
-  Hello world.
+  defdelegate tick(pid\\BulletRegistry),                         to: BulletRegistry.Client
+  defdelegate add_bullet(x, y, direction, pid\\BulletRegistry),  to: BulletRegistry.Client
+  defdelegate peek(pid\\BulletRegistry),                         to: BulletRegistry.Client
 
-  ## Examples
+  defdelegate new_registry(),                                    to: BulletRegistry.Supervisor
 
-      iex> Playerregistry.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def start(_type, _opts) do
+    BulletRegistry.Supervisor.start_child_registry
   end
+
 end
