@@ -3,7 +3,6 @@ defmodule ImplTest.Server do
 
   test "the server boots into a new state" do
     pid = BulletRegistry.new_registry
-    IO.inspect pid
     BulletRegistry.tick(pid)
     assert Enum.count((BulletRegistry.peek(pid)).bullets) == 0
   end
@@ -13,7 +12,7 @@ defmodule ImplTest.Server do
     BulletRegistry.tick(pid)
     BulletRegistry.add_bullet(0, 0, :up, pid)
     BulletRegistry.tick(pid)
-    assert Enum.count((BulletRegistry.peek).bullets) == 1
+    assert Enum.count((BulletRegistry.peek(pid)).bullets) == 1
   end
 
 end
