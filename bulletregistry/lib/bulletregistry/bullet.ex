@@ -9,13 +9,8 @@ defmodule BulletRegistry.Bullet do
     direction:  :left
   ]
 
-  def create_bullet(bullet_data) do
-    create_bullet(
-      bullet_data["timestamp"],
-      bullet_data["direction"],
-      bullet_data["x"],
-      bullet_data["y"]
-    )
+  def create_bullet(%{timestamp: timestamp, direction: direction, x: x, y: y}) do
+    create_bullet(timestamp, direction, x, y)
   end
 
   def create_bullet(timestamp, direction, x, y) do

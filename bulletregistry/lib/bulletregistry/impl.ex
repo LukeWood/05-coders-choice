@@ -1,15 +1,15 @@
 defmodule BulletRegistry.Impl do
 
-  def bullet_update(bullet = %{"direction" => :left}) do
+  def bullet_update(bullet = %{:direction => :left}) do
     Map.update!(bullet, :x, fn x -> x - 1 end)
   end
-  def bullet_update(bullet = %{"direction" => :right}) do
+  def bullet_update(bullet = %{:direction => :right}) do
     Map.update!(bullet, :x, fn x -> x + 1 end)
   end
-  def bullet_update(bullet = %{"direction" => :up}) do
+  def bullet_update(bullet = %{:direction => :up}) do
     Map.update!(bullet, :y, fn y -> y - 1 end)
   end
-  def bullet_update(bullet = %{"direction" => :down}) do
+  def bullet_update(bullet = %{:direction => :down}) do
     Map.update!(bullet, :y, fn y -> y - 1 end)
   end
 
@@ -19,7 +19,7 @@ defmodule BulletRegistry.Impl do
 
   def filter_bullets(bullets, timestamp) do
     bullets |>
-    Enum.filter(&(&1.expiration > timestamp))
+    Enum.filter(&(Map.get(&1, :expiration) > timestamp))
   end
 
   def tick(state, timestamp, new_bullets) do
