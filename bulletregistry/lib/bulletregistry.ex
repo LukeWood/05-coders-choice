@@ -5,7 +5,9 @@ defmodule BulletRegistry do
   defdelegate new_registry,                        to: BulletRegistry.Impl
 
   def start_link do
-
+    GenServer.start_link(BulletRegistry.Server, [], name: BulletRegistry)
+    BulletRegistry.ChangeList.start_link
+    BulletRegistry.StateMaintainer.start_link
   end
 
 end
