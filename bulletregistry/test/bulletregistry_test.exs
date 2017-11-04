@@ -19,4 +19,10 @@ defmodule BulletRegistryTest do
     assert Enum.count(state.bullets) == 1
   end
 
+  test "tick moves bullets" do
+    state = BulletRegistry.new_registry |>
+    BulletRegistry.tick(0, [%BulletRegistry.Bullet{}]) |>
+    BulletRegistry.tick(1000, )
+  end
+
 end
