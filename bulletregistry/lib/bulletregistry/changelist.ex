@@ -13,7 +13,7 @@ defmodule BulletRegistry.ChangeList do
     add(item, @name)
   end
   def add(item, name) do
-    Agent.update(name, fn list -> [list | item] end)
+    Agent.update(name, fn list -> [item | list] end)
   end
 
   def flush_changes(name) do

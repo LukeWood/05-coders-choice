@@ -16,7 +16,9 @@ defmodule BulletRegistry.Bullet do
   def create_bullet(%{timestamp: timestamp, direction: direction, x: x, y: y}) do
     create_bullet(timestamp, direction, x, y)
   end
-
+  def create_bullet(%{direction: direction, x: x, y: y}) do
+    create_bullet(:os.system_time(:millisecond), direction, x, y)
+  end
   def create_bullet(timestamp, direction, x, y) do
     %BulletRegistry.Bullet{
       expiration: timestamp + @lifetime,

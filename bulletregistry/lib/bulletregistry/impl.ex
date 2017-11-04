@@ -28,6 +28,10 @@ defmodule BulletRegistry.Impl do
     Enum.filter(&(Map.get(&1, :expiration) > timestamp))
   end
 
+  def tick(state, timestamp, []) do
+    tick(state, timestamp)
+  end
+
   def tick(state, timestamp, new_bullets) do
     new_bullets = Enum.map(new_bullets, &BulletRegistry.Bullet.create_bullet/1)
     Map.update!(state, :bullets, fn bullets -> bullets ++ new_bullets end) |>
