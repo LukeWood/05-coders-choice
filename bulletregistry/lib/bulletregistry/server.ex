@@ -5,6 +5,16 @@ defmodule BulletRegistry.Server do
   alias BulletRegistry.ChangeList,      as: ChangeList
   alias BulletRegistry.Impl,            as: Impl
 
+  def start_link(name) do
+    GenServer.start_link(BulletRegistry.Server,
+      BulletRegistry.Impl.new_registry,
+      name: name)
+  end
+
+  def start_link() do
+    start_link(BulletRegistry)
+  end
+
   def handle_call({:add_bullet, bullet}, _from, state) do
     Bullet.create_bullet(bullet) |>
     ChangeList.add
