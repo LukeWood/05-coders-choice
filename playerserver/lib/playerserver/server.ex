@@ -1,23 +1,23 @@
-defmodule PlayerRegistry.Server do
+defmodule PlayerServer.Server do
   use GenServer
 
-  alias PlayerRegistry.Impl, as: Impl
+  alias PlayerServer.Impl, as: Impl
 
   def start_link(name) do
-    GenServer.start_link(PlayerRegistry.Server,
-      PlayerRegistry.Impl.zero_state,
+    GenServer.start_link(PlayerServer.Server,
+      PlayerServer.Impl.zero_state,
       name: name)
   end
 
-  def handle_call({:tick, bullet_pid, timestamp}, _from, state) do
+  def handle_call({:tick, shoot_callback, timestamp}, _from, state) do
     state |>
-    Impl.tick(bullet_pid, timestamp) |>
+    Impl.tick(shoot_callback, timestamp) |>
     reply
   end
 
   def handle_call({:add_player, conn}, _from, state) do
     state |>
-    Impl.add_player(conn, %PlayerRegistry.Player{}) |>
+    Impl.add_player(conn, %PlayerServer.Player{}) |>
     reply
   end
 

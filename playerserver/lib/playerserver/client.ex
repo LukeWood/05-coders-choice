@@ -1,7 +1,7 @@
-defmodule PlayerRegistry.Client do
+defmodule PlayerServer.Client do
 
-  def tick(pid, bullet_pid, timestamp) do
-    GenServer.call(pid, {:tick, bullet_pid, timestamp})
+  def tick(pid, shoot_callback, timestamp) do
+    GenServer.call(pid, {:tick, shoot_callback, timestamp})
   end
 
   def peek(pid) do

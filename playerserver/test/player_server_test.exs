@@ -1,9 +1,9 @@
 defmodule ImplTest.Server do
   use ExUnit.Case
 
-  import PlayerRegistry
+  import PlayerServer
 
-  test "Instantiate new PlayerRegistry instance" do
+  test "Instantiate new PlayerServer instance" do
     pid = new_registry()
     assert pid != nil
   end

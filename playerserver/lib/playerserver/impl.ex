@@ -1,4 +1,4 @@
-defmodule PlayerRegistry.Impl do
+defmodule PlayerServer.Impl do
 
   defp apply_actions(state) do
     actions = state.actions
@@ -12,15 +12,14 @@ defmodule PlayerRegistry.Impl do
     Map.put(state, :players, players)
   end
 
-  defp shoot(player, bullet_pid) do
-    BulletRegistry.add_bullet(player.x, player.y, player.direction, bullet_pid)
+  defp shoot(player, shoot_callback) do
+    shoot_callback.(player)
   end
 
-  defp apply_shots(state, bullet_pid, timestamp) do
+  defp apply_shots(state, shoot_callback, timestamp) do
     state.shots |>
     Enum.filter(fn {shot, _} -> Enum.at(state.players, shot).reload_time > timestamp end) |>
-    Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), bullet_pid) end)
-
+    Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), shoot_callback) end)
     Map.put(state, :shots, %{})
   end
 
@@ -48,10 +47,10 @@ defmodule PlayerRegistry.Impl do
     Map.put(state, :players, new_players)
   end
 
-  def tick(state, bullet_pid, timestamp) do
+  def tick(state, shoot_callback, timestamp) do
     state |>
     apply_actions |>
-    apply_shots(bullet_pid, timestamp) |>
+    apply_shots(shoot_callback, timestamp) |>
     apply_movements |>
     Map.put(:timestamp, timestamp)
   end
