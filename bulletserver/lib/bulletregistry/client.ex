@@ -1,13 +1,13 @@
 defmodule BulletServer.Client do
 
-  def tick(timestamp, pid\\BulletServer) do
+  def tick(pid, timestamp) do
     GenServer.call(pid, {:tick, timestamp})
   end
-  def add_bullet(x, y, direction, timestamp, pid\\BulletServer) do
+  def add_bullet(pid, x, y, direction, timestamp) do
     GenServer.cast(pid, {:add_bullet, x, y, direction, timestamp})
   end
 
-  def peek(pid\\BulletServer) do
+  def peek(pid) do
     GenServer.call(pid, {:peek})
   end
 end

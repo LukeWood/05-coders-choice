@@ -1,14 +1,16 @@
 defmodule GameServer.Supervisor do
   def new_server do
-    time = 1000
-    {:ok, pid} = GenServer.start_link(GameServer.Server, time)
+    time = :os.system_time(:millisecond)
+
+    # We need to change this to be supervised somehow
     bullet_pid = BulletServer.new_registry
     player_pid = PlayerServer.new_registry
 
-    children = %GameServer.Children{
-      bullet_server: bullet_pid,
-      player_server: player_pid
+    state = %{
+      time:       time,
+      bullet_pid: bullet_pid,
+      player_pid: player_pid
     }
-    KeyVal.set(pid, children)
+    {:ok, pid} = GenServer.start_link(GameServer.Server, state)
   end
 end

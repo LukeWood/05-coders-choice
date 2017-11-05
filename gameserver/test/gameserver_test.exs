@@ -1,6 +1,8 @@
 defmodule GameServerTest do
   use ExUnit.Case
 
-  test "greets the world" do
+  test "instantiate game server" do
+    pid = GameServer.new_server
+    assert pid != nil
   end
 end
