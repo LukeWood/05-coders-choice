@@ -56,8 +56,17 @@ defmodule PlayerRegistry.Impl do
     Map.put(:timestamp, timestamp)
   end
 
-  def add_player(state, player) do
-    Map.update!(state, :players, fn players -> [player | players] end)
+  def add_player(state, player_id, player) do
+    Map.update!(state, :players, fn players -> Map.put(player_id, player) end)
+  end
+
+  def add_action(state, action) do
+    Map.update!(state, :actions,
+     fn actions -> Map.put(actions,
+      action.player_id,
+      action.action
+      ) end
+    )
   end
 
   def zero_state do
@@ -68,7 +77,6 @@ defmodule PlayerRegistry.Impl do
       timestamp:  0
     }
   end
-
 
 
 end

@@ -14,7 +14,7 @@ defmodule ImplTest.Impl do
   test "players can move" do
     player = Impl.zero_state |>
     Impl.add_player(%PlayerRegistry.Player{}) |>
-    #|> add action
+    Impl.add_action(%{action: :left, player_id: 0})
     Impl.tick(nil, 0) |>
     Map.get(:players) |>
     Enum.at(0)
