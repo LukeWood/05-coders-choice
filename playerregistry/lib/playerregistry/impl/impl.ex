@@ -17,8 +17,13 @@ defmodule PlayerRegistry.Impl do
     BulletRegistry.add_bullet(player.x, player.y, player.direction, bullet_pid)
   end
 
-  defp apply_shots(state, bullet_pid) do
-    state
+  defp apply_shots(state, bullet_pid, timestamp) do
+    state.shots |>
+    Enum.filter(fn {shot, _} -> Enum.at(state.players, shot).reload_time > timestamp end) |>
+    Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), bullet_pid) end)
+
+    state |>
+    Map.put(:shots, %{})
   end
 
   @player_speed 1
@@ -45,7 +50,7 @@ defmodule PlayerRegistry.Impl do
   def tick(state, bullet_pid, timestamp) do
     state |>
     apply_actions |>
-    apply_shots(bullet_pid) |>
+    apply_shots(bullet_pid, timestamp) |>
     apply_movements
   end
 
