@@ -4,8 +4,11 @@ defmodule ImplTest.Impl do
   alias PlayerRegistry.Impl, as: Impl
 
   test "add player to registry" do
-    state = Impl.zero_state
-    state = Impl.add_player(state, %PlayerRegistry.Player{})
+    players = Impl.zero_state |>
+    Impl.add_player(%PlayerRegistry.Player{}) |>
+    Map.get(:players) |>
+    Enum.count
+    assert players == 1
   end
 
 end
