@@ -7,7 +7,9 @@ defmodule GameServerTest do
   end
 
   test "add player through game server" do
-
+    pid = GameServer.new_server
+    GameServer.tick(pid)
+    assert :ok == GameServer.add_player(pid, "Luke")
   end
 
   test "add bullet through game server" do
@@ -22,6 +24,5 @@ defmodule GameServerTest do
     Enum.count
     assert num_bullets == 1
   end
-
 
 end
