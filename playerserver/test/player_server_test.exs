@@ -29,6 +29,32 @@ defmodule ImplTest.Server do
     assert player.y == 0
   end
 
+  test "Players can take stop" do
+    pid = new_registry()
+    tick(pid, nil, 1000)
+    add_player(pid, "Luke")
+    player_input(pid, "Luke", :left)
+    tick(pid, nil, 1000)
+
+    player = peek(pid).players |>
+     Map.get("Luke")
+
+    assert player.direction == :left
+    assert player.x == -1
+    assert player.y == 0
+
+    player_input(pid, "Luke", :stop)
+
+    player = peek(pid).players |>
+     Map.get("Luke")
+
+    assert player.direction == :left
+    assert player.moving == false
+    assert player.x == -1
+    assert player.y == 0
+  end
+
+
   test "Adding a bullet works through PlayerServer callback" do
     pid = new_registry()
 

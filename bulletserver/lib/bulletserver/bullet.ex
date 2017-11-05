@@ -1,7 +1,7 @@
 defmodule BulletServer.Bullet do
 
   @lifetime 10000
-  
+
   defstruct [
     expiration: 0,
     timestamp:  0,

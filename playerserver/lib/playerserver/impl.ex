@@ -7,6 +7,7 @@ defmodule PlayerServer.Impl do
         Map.update!(players, player_id,
           fn player ->
             Map.put(player, :direction, action)
+            Map.put(player, :moving,    true)
           end)
       end)
     Map.put(state, :players, players)
@@ -28,6 +29,9 @@ defmodule PlayerServer.Impl do
   end
 
   @player_speed 1
+  defp move_player(player = %{moving: false}) do
+    player
+  end
   defp move_player(player = %{x: x, direction: :left}) do
     Map.put(player, :x, x - @player_speed)
   end
@@ -57,6 +61,16 @@ defmodule PlayerServer.Impl do
     apply_shots(shoot_callback, timestamp) |>
     apply_movements |>
     Map.put(:timestamp, timestamp)
+  end
+
+  def stop_player(state, player_id) do
+    Map.update!(state, :players,
+      fn players ->
+        Map.update!(players, player_id,
+          fn player -> Map.put(player, :moving, false)
+        end)
+      end
+    )
   end
 
   def add_player(state, player_id, player) do

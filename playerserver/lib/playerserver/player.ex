@@ -1,4 +1,10 @@
 defmodule PlayerServer.Player do
+
+  @radius 25
+  def radius do
+    @radius
+  end
+
   defstruct [
     x:            0,
     y:            0,

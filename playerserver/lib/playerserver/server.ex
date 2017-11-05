@@ -25,6 +25,12 @@ defmodule PlayerServer.Server do
     {:reply, state, state}
   end
 
+  def handle_cast({:player_input, player, :stop}, state) do
+    state |>
+    Impl.stop_player(player) |>
+    no_reply
+  end
+
   def handle_cast({:player_input, player, :shoot}, state) do
     state |>
     Impl.add_shot(player) |>
