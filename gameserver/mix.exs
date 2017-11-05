@@ -1,4 +1,4 @@
-defmodule Gameserver.Mixfile do
+defmodule GameServer.Mixfile do
   use Mix.Project
 
   def project do
