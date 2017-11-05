@@ -1,6 +1,6 @@
 defmodule PlayerRegistry.Client do
 
-  def tick(bullet_pid, timestamp, pid\\PlayerRegistry) do
+  def tick(pid, bullet_pid, timestamp) do
     GenServer.call(pid, {:tick, bullet_pid, timestamp})
   end
 
@@ -8,9 +8,12 @@ defmodule PlayerRegistry.Client do
     GenServer.call(pid, {:peek})
   end
 
-  def player_input(player_id, action, pid\\PlayerRegistry) do
+  def player_input(pid, player_id, action) do
     GenServer.cast(pid, {:player_input, player_id, action})
   end
 
+  def add_player(pid, player_id) do
+    GenServer.call(pid, {:add_player, player_id})
+  end
 
 end

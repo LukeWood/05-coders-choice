@@ -25,7 +25,6 @@ defmodule PlayerRegistry.Impl do
   end
 
   @player_speed 1
-
   defp move_player(player = %{x: x, direction: :left}) do
     Map.put(player, :x, x - @player_speed)
   end
