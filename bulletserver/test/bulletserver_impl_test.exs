@@ -1,7 +1,7 @@
 defmodule ImplTest do
   use ExUnit.Case
 
-  alias BulletRegistry.Impl, as: Impl
+  alias BulletServer.Impl, as: Impl
 
   test "empty state construction" do
     state = Impl.new_registry
@@ -17,15 +17,15 @@ defmodule ImplTest do
 
   test "adding a bullet directly through tick works" do
     state = Impl.new_registry |>
-    Impl.tick(0, [%BulletRegistry.Bullet{}])
+    Impl.tick(0, [%BulletServer.Bullet{}])
     assert Enum.count(state.bullets) == 1
   end
 
   test "tick moves bullets" do
     state = Impl.new_registry |>
-    Impl.tick(0, [%BulletRegistry.Bullet{}]) |>
-    Impl.tick(1000, [%BulletRegistry.Bullet{}]) |>
-    Impl.tick(2000, [%BulletRegistry.Bullet{direction: :down}])
+    Impl.tick(0, [%BulletServer.Bullet{}]) |>
+    Impl.tick(1000, [%BulletServer.Bullet{}]) |>
+    Impl.tick(2000, [%BulletServer.Bullet{direction: :down}])
 
     assert Enum.at(state.bullets, 0).x == -3
     assert Enum.at(state.bullets, 1).x == -2
@@ -35,8 +35,8 @@ defmodule ImplTest do
 
   test "bullets are removed after lifetime" do
     state = Impl.new_registry |>
-    Impl.tick(0, [%BulletRegistry.Bullet{}]) |>
-    Impl.tick(BulletRegistry.Bullet.lifetime() + 1)
+    Impl.tick(0, [%BulletServer.Bullet{}]) |>
+    Impl.tick(BulletServer.Bullet.lifetime() + 1)
     assert Enum.count(state.bullets) == 0
   end
 

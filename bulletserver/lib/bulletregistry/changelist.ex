@@ -1,4 +1,4 @@
-defmodule BulletRegistry.ChangeList do
+defmodule BulletServer.ChangeList do
 
   @name :BulletChangeList
 

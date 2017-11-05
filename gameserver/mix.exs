@@ -19,8 +19,9 @@ defmodule Gameserver.Mixfile do
 
   defp deps do
     [
-      {:bulletserver, in_umbrella: true},
-      {:}
+      {:bulletserver,   in_umbrella: true},
+      {:keyval,         in_umbrella: true},
+      {:playerserver, in_umbrella: true}
     ]
   end
 end

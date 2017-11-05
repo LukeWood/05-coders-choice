@@ -1,19 +1,19 @@
-defmodule BulletRegistry.Server do
+defmodule BulletServer.Server do
   use GenServer
 
-  alias BulletRegistry.Bullet,          as: Bullet
-  alias BulletRegistry.ChangeList,      as: ChangeList
-  alias BulletRegistry.Impl,            as: Impl
+  alias BulletServer.Bullet,          as: Bullet
+  alias BulletServer.ChangeList,      as: ChangeList
+  alias BulletServer.Impl,            as: Impl
   alias KeyVal,                         as: ChildrenRegistry
 
   def start_link(name) do
-    GenServer.start_link(BulletRegistry.Server,
-      BulletRegistry.Impl.new_registry,
+    GenServer.start_link(BulletServer.Server,
+      BulletServer.Impl.new_registry,
       name: name)
   end
 
   def start_link() do
-    start_link(BulletRegistry)
+    start_link(BulletServer)
   end
 
   def handle_call({:add_bullet, bullet}, _from, state) do
