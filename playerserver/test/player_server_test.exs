@@ -27,7 +27,21 @@ defmodule ImplTest.Server do
     assert player.direction == :left
     assert player.x == -1
     assert player.y == 0
+  end
 
+  test "Adding a bullet works through PlayerServer" do
+    pid = new_registry()
+
+    agent_pid = Agent.start(fn -> 0 end)
+    callback = fn (player, _) ->
+      Agent.update(agent_pid, fn x -> x+1 end)
+    end
+
+    tick(pid, callback, 0)
+    add_player(pid, "Luke")
+    player_input(pid, "Luke", :shoot)
+    tick(pid, callback, 1)
+    assert Agent.get(agent_pid, fn x -> x end) == 1
   end
 
 end
