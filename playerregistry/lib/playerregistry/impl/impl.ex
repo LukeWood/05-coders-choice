@@ -14,26 +14,26 @@ defmodule PlayerRegistry.Impl do
   end
 
   defp shoot(player, bullet_pid) do
-
+    BulletRegistry.add_bullet(player.x, player.y, player.direction, bullet_pid)
   end
 
   defp apply_shots(state, bullet_pid) do
-    
+    state
   end
 
   @player_speed 1
 
-  defp move_player(player = {x: x, direction: :left}) do
+  defp move_player(player = %{x: x, direction: :left}) do
     Map.put(player, :x, x - @player_speed)
   end
-  defp move_player(player = {x: x, direction: :right}) do
+  defp move_player(player = %{x: x, direction: :right}) do
     Map.put(player, :x, x + @player_speed)
   end
-  defp move_player(player = {y: y, direction: :up}) do
-    Map.put(player, :y, x - @player_speed)
+  defp move_player(player = %{y: y, direction: :up}) do
+    Map.put(player, :y, y - @player_speed)
   end
-  defp move_player(player = {y: y, direction: :down}) do
-    Map.put(player, :y, x + @player_speed)
+  defp move_player(player = %{y: y, direction: :down}) do
+    Map.put(player, :y, y + @player_speed)
   end
 
   defp apply_movements(state) do
@@ -45,7 +45,7 @@ defmodule PlayerRegistry.Impl do
   def tick(state, bullet_pid, timestamp) do
     state |>
     apply_actions |>
-    apply_shots |>
+    apply_shots(bullet_pid) |>
     apply_movements
   end
 
