@@ -19,6 +19,8 @@ defmodule Gameserver.Mixfile do
 
   defp deps do
     [
+      {:bulletserver, in_umbrella: true},
+      {:}
     ]
   end
 end

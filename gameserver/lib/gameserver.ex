@@ -1,6 +1,3 @@
-defmodule Gameserver do
-
-  def start_link do
-  end
+defmodule GameServer do
 
 end
