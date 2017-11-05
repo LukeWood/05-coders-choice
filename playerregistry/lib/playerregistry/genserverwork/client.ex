@@ -1,13 +1,11 @@
-defmodule BulletRegistry.Client do
+defmodule PlayerRegistry.Client do
 
-  def tick(pid\\BulletRegistry) do
+  def tick(pid\\PlayerRegistry) do
     GenServer.call(pid, {:tick})
   end
-  def add_bullet(x, y, direction, pid\\BulletRegistry) do
-    GenServer.cast(pid, {:add_bullet, x, y, direction})
+
+  def player_input(player_number, direction, pid\\PlayerRegistry) do
+    GenServer.cast(pid, {:player_input, player_number, direction})
   end
 
-  def peek(pid\\BulletRegistry) do
-    GenServer.call(pid, {:peek})
-  end
 end

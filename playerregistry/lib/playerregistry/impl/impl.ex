@@ -1,54 +1,59 @@
-defmodule BulletRegistry.Impl do
+defmodule PlayerRegistry.Impl do
 
-  @bullet_speed 1
+  alias PlayerRegistry.Player, as: Player
 
-  #TODO(lukewood)
-  # bullets should move by dx and dy defined by:
-  # (timestamp - last_timestamp)/1000 * bullet_speed
-
-  defp bullet_update(bullet = %{:direction => :left}) do
-    Map.update!(bullet, :x, fn x -> x - @bullet_speed end)
-  end
-  defp bullet_update(bullet = %{:direction => :right}) do
-    Map.update!(bullet, :x, fn x -> x + @bullet_speed end)
-  end
-  defp bullet_update(bullet = %{:direction => :up}) do
-    Map.update!(bullet, :y, fn y -> y - @bullet_speed end)
-  end
-  defp bullet_update(bullet = %{:direction => :down}) do
-    Map.update!(bullet, :y, fn y -> y + @bullet_speed end)
+  defp apply_actions(state) do
+    actions = state.actions
+    players = Enum.reduce(actions, state.players,
+      fn(action, players) ->
+        Enum.update(players, action.player_number, fn player ->
+          Map.put(player, action.direction)
+        end)
+      end)
+    Map.put(state, :players, players)
   end
 
-  defp update_all_bullets(bullets) do
-    Enum.map(bullets, &bullet_update/1)
+  defp shoot(player, bullet_pid) do
+
   end
 
-  defp filter_bullets(bullets, timestamp) do
-    bullets |>
-    Enum.filter(&(Map.get(&1, :expiration) > timestamp))
+  defp apply_shots(state, bullet_pid) do
+    
   end
 
-  def tick(state, timestamp, []) do
-    tick(state, timestamp)
+  @player_speed 1
+
+  defp move_player(player = {x: x, direction: :left}) do
+    Map.put(player, :x, x - @player_speed)
+  end
+  defp move_player(player = {x: x, direction: :right}) do
+    Map.put(player, :x, x + @player_speed)
+  end
+  defp move_player(player = {y: y, direction: :up}) do
+    Map.put(player, :y, x - @player_speed)
+  end
+  defp move_player(player = {y: y, direction: :down}) do
+    Map.put(player, :y, x + @player_speed)
   end
 
-  def tick(state, timestamp, new_bullets) do
-    new_bullets = Enum.map(new_bullets, &BulletRegistry.Bullet.create_bullet/1)
-    Map.update!(state, :bullets, fn bullets -> bullets ++ new_bullets end) |>
-    tick(timestamp)
+  defp apply_movements(state) do
+    new_players = Enum.map(state, &move_player/1)
+    Map.put(state, :players, new_players)
   end
 
-  def tick(state, timestamp) do
+
+  def tick(state, bullet_pid, timestamp) do
     state |>
-    Map.update!(:bullets, &(filter_bullets(&1, timestamp))) |>
-    Map.update!(:bullets, &update_all_bullets/1) |>
-    Map.put(:timestamp, timestamp)
+    apply_actions |>
+    apply_shots |>
+    apply_movements
   end
 
-  def new_registry do
+  def zero_state do
     %{
-      bullets:   [],
-      timestamp: 0
+      state:    %{},
+      actions:  %{},
+      shots:    %{}
     }
   end
 

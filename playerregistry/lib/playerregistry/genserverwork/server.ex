@@ -7,4 +7,34 @@ defmodule PlayerRegistry.Server do
       name: name)
   end
 
+  def handle_call({:tick}, _from, state) do
+
+  end
+
+  def handle_call({:add_player, conn}, _From, state) do
+
+  end
+
+  def handle_cast({:player_input, player, :shoot}, state) do
+    state |>
+    Map.put(
+      :shots,
+      Map.put(state.shots, player, :shoot)
+    ) |>
+    no_reply
+  end
+
+  def handle_cast({:player_input, player, direction}, state) do
+    state |>
+    Map.put(
+      :actions,
+      Map.put(state.actions, direction)
+    ) |>
+    no_reply
+  end
+
+  defp no_reply state do
+    {:no_reply, state}
+  end
+
 end
