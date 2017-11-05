@@ -28,7 +28,7 @@ defmodule PlayerRegistry.Server do
     state |>
     Map.put(
       :actions,
-      Map.put(state.actions, direction)
+      Map.put(state.actions, :direction, direction)
     ) |>
     no_reply
   end
