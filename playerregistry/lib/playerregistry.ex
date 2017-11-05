@@ -5,7 +5,7 @@ defmodule PlayerRegistry do
   defdelegate new_registry(),                                    to: PlayerRegistry.Supervisor
 
   def start(_type, _opts) do
-    PlayerRegistry.Supervisor.start_child_registry
+
   end
 
 end
