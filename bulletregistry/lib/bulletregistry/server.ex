@@ -22,11 +22,11 @@ defmodule BulletRegistry.Server do
     {:reply, :ok, state}
   end
 
-  def handle_call({:tick}, _from, state) do
+  def handle_call({:tick, timestamp}, _from, state) do
     pid = ChildrenRegistry.get(self())
     new_bullets = ChangeList.flush_changes(pid)
     state |>
-    Impl.tick(:os.system_time(:millisecond), new_bullets) |>
+    Impl.tick(timestamp, new_bullets) |>
     reply_good
   end
 
