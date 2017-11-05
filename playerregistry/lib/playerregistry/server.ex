@@ -21,21 +21,19 @@ defmodule PlayerRegistry.Server do
     reply
   end
 
+  def handle_call({:peek}, _from, state) do
+    {:reply, state, state}
+  end
+
   def handle_cast({:player_input, player, :shoot}, state) do
     state |>
-    Map.put(
-      :shots,
-      Map.put(state.shots, player, :shoot)
-    ) |>
+    Impl.add_shot(player) |>
     no_reply
   end
 
   def handle_cast({:player_input, player, direction}, state) do
     state |>
-    Map.put(
-      :actions,
-      Map.put(state.actions, :direction, direction)
-    ) |>
+    Impl.add_action(player, direction) |>
     no_reply
   end
 

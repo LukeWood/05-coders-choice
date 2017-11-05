@@ -19,6 +19,7 @@ defmodule ImplTest.Impl do
     Map.get(:players) |>
     Map.get("Luke")
     assert player.direction == :left
+    assert player.x == -1
   end
 
 end

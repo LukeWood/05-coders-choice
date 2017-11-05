@@ -61,6 +61,10 @@ defmodule PlayerRegistry.Impl do
     Map.update!(state, :players, fn players -> Map.put(players, player_id, player) end)
   end
 
+  def add_shot(state, player) do
+    Map.update!(state, :shots, fn shots -> Map.put(shots, player, :shoot) end)
+  end
+
   def add_action(state, player_id, action) do
     Map.update!(state, :actions,
      fn actions -> Map.put(actions,
