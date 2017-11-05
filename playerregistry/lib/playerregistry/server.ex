@@ -17,7 +17,7 @@ defmodule PlayerRegistry.Server do
 
   def handle_call({:add_player, conn}, _from, state) do
     state |>
-    add_player(conn, %PlayerRegistry.Player{}) |>
+    Impl.add_player(conn, %PlayerRegistry.Player{}) |>
     reply
   end
 

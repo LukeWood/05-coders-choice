@@ -5,7 +5,7 @@ defmodule ImplTest.Impl do
 
   test "add player to registry" do
     players = Impl.zero_state |>
-    Impl.add_player(%PlayerRegistry.Player{}) |>
+    Impl.add_player("Luke", %PlayerRegistry.Player{}) |>
     Map.get(:players) |>
     Enum.count
     assert players == 1
@@ -13,11 +13,12 @@ defmodule ImplTest.Impl do
 
   test "players can move" do
     player = Impl.zero_state |>
-    Impl.add_player(%PlayerRegistry.Player{}) |>
-    Impl.add_action(%{action: :left, player_id: 0})
+    Impl.add_player("Luke", %PlayerRegistry.Player{}) |>
+    Impl.add_action("Luke", :left) |>
     Impl.tick(nil, 0) |>
     Map.get(:players) |>
-    Enum.at(0)
+    Map.get("Luke")
+    assert player.direction == :left
   end
 
 end

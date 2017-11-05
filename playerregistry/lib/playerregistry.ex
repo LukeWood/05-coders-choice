@@ -1,6 +1,6 @@
 defmodule PlayerRegistry do
 
-  defdelegate tick(pid\\PlayerRegistry),                         to: PlayerRegistry.Client
+  defdelegate tick(bullet_pid, timestamp, pid\\PlayerRegistry),                         to: PlayerRegistry.Client
 
   defdelegate new_registry(),                                    to: PlayerRegistry.Supervisor
 

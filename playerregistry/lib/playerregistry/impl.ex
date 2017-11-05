@@ -3,10 +3,10 @@ defmodule PlayerRegistry.Impl do
   defp apply_actions(state) do
     actions = state.actions
     players = Enum.reduce(actions, state.players,
-      fn(action, players) ->
-        Map.update!(players, action.player_number,
+      fn({player_id, action}, players) ->
+        Map.update!(players, player_id,
           fn player ->
-          Map.put(player, :direction, action.direction)
+            Map.put(player, :direction, action)
           end)
       end)
     Map.put(state, :players, players)
@@ -21,8 +21,7 @@ defmodule PlayerRegistry.Impl do
     Enum.filter(fn {shot, _} -> Enum.at(state.players, shot).reload_time > timestamp end) |>
     Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), bullet_pid) end)
 
-    state |>
-    Map.put(:shots, %{})
+    Map.put(state, :shots, %{})
   end
 
   @player_speed 1
@@ -44,7 +43,9 @@ defmodule PlayerRegistry.Impl do
   end
 
   defp apply_movements(state) do
-    new_players = Enum.map(state, &move_player/1)
+    new_players = Enum.map(state.players,
+      fn{player_id, player} -> {player_id, move_player(player)} end) |>
+      Enum.into(%{})
     Map.put(state, :players, new_players)
   end
 
@@ -57,21 +58,21 @@ defmodule PlayerRegistry.Impl do
   end
 
   def add_player(state, player_id, player) do
-    Map.update!(state, :players, fn players -> Map.put(player_id, player) end)
+    Map.update!(state, :players, fn players -> Map.put(players, player_id, player) end)
   end
 
-  def add_action(state, action) do
+  def add_action(state, player_id, action) do
     Map.update!(state, :actions,
      fn actions -> Map.put(actions,
-      action.player_id,
-      action.action
+      player_id,
+      action
       ) end
     )
   end
 
   def zero_state do
     %{
-      players:    [],
+      players:    %{},
       actions:    %{},
       shots:      %{},
       timestamp:  0
