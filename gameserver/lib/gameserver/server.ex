@@ -5,15 +5,20 @@ defmodule GameServer.Server do
   end
 
   def handle_cast({:tick}, _from, state) do
-    time = :os.system_time(:millisecond)
-    dt = time - state.time
+    timestamp = :os.system_time(:millisecond)
+    dt = timestamp - state.time
+
     bullet_pid = state.bullet_pid
     player_pid = state.player_pid
+    bullet_callback = state.bullet_callback
 
-    BulletServer.tick(bullet_pid)
-    PlayerServer.tick(player_pid)
-
-    {:reply, :nil, Map.put(state, :time, time)}
+    bullet_state = BulletServer.tick(bullet_pid, timestamp)
+    player_state = PlayerServer.tick(player_pid, bullet_callback, timestamp)
+    states = %{
+      bullets: bullet_state,
+      players: player_state
+    }
+    {:reply, states, Map.put(state, :timestamp, timestamp)}
   end
 
 end

@@ -12,14 +12,14 @@ defmodule PlayerServer.Impl do
     Map.put(state, :players, players)
   end
 
-  defp shoot(player, shoot_callback) do
+  defp shoot(player, shoot_callback, timestamp) do
     shoot_callback.(player)
   end
 
   defp apply_shots(state, shoot_callback, timestamp) do
     state.shots |>
     Enum.filter(fn {shot, _} -> Enum.at(state.players, shot).reload_time > timestamp end) |>
-    Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), shoot_callback) end)
+    Enum.map(fn {shot, _} -> shoot(Enum.at(state.players, shot), shoot_callback, timestamp) end)
     Map.put(state, :shots, %{})
   end
 
