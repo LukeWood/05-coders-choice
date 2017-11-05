@@ -13,5 +13,6 @@ defmodule GameServer.Supervisor do
       bullet_callback: bullet_callback
     }
     {:ok, pid} = GenServer.start_link(GameServer.Server, state)
+    pid
   end
 end

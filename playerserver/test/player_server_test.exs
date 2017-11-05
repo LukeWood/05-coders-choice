@@ -29,7 +29,7 @@ defmodule ImplTest.Server do
     assert player.y == 0
   end
 
-  test "Adding a bullet works through PlayerServer" do
+  test "Adding a bullet works through PlayerServer callback" do
     pid = new_registry()
 
     {:ok, agent_pid} = Agent.start(fn -> 0 end)
