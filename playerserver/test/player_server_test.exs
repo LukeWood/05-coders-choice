@@ -32,8 +32,8 @@ defmodule ImplTest.Server do
   test "Adding a bullet works through PlayerServer" do
     pid = new_registry()
 
-    agent_pid = Agent.start(fn -> 0 end)
-    callback = fn (player, _) ->
+    {:ok, agent_pid} = Agent.start(fn -> 0 end)
+    callback = fn (_1, _) ->
       Agent.update(agent_pid, fn x -> x+1 end)
     end
 
