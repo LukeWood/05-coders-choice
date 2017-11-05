@@ -6,9 +6,10 @@ defmodule PlayerRegistry.Impl do
     actions = state.actions
     players = Enum.reduce(actions, state.players,
       fn(action, players) ->
-        Enum.update(players, action.player_number, fn player ->
-          Map.put(player, action.direction)
-        end)
+        Map.update(players, action.player_number,
+          fn player ->
+          Map.put(player, :direction, action.direction)
+          end)
       end)
     Map.put(state, :players, players)
   end
@@ -46,19 +47,20 @@ defmodule PlayerRegistry.Impl do
     Map.put(state, :players, new_players)
   end
 
-
   def tick(state, bullet_pid, timestamp) do
     state |>
     apply_actions |>
     apply_shots(bullet_pid, timestamp) |>
-    apply_movements
+    apply_movements |>
+    Map.put(:timestamp, timestamp)
   end
 
   def zero_state do
     %{
-      state:    %{},
-      actions:  %{},
-      shots:    %{}
+      state:      %{},
+      actions:    %{},
+      shots:      %{},
+      timestamp:  0
     }
   end
 
