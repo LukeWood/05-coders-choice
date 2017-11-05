@@ -9,7 +9,7 @@ defmodule ImplTest do
     assert state.timestamp == 0
   end
 
-  test "tick works" do
+  test "tick function works" do
      state = Impl.new_registry |>
      Impl.tick(1000)
      assert state.timestamp == 1000

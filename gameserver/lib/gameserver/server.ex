@@ -9,7 +9,6 @@ defmodule GameServer.Server do
       }) do
 
     timestamp = :os.system_time(:millisecond)
-
     bullet_state = BulletServer.tick(bullet_pid, timestamp)
     player_state = PlayerServer.tick(player_pid, bullet_callback, timestamp)
     states = %{
