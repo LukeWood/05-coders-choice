@@ -42,6 +42,10 @@ defmodule ImplTest.Server do
     player_input(pid, "Luke", :shoot)
     tick(pid, callback, 1)
     assert Agent.get(agent_pid, fn x -> x end) == 1
+
+    #test that we only fire once.
+    tick(pid, callback, 2)
+    assert Agent.get(agent_pid, fn x -> x end) == 1
   end
 
 end
