@@ -1,12 +1,10 @@
 defmodule PlayerRegistry.Impl do
 
-  alias PlayerRegistry.Player, as: Player
-
   defp apply_actions(state) do
     actions = state.actions
     players = Enum.reduce(actions, state.players,
       fn(action, players) ->
-        Map.update(players, action.player_number,
+        Map.update!(players, action.player_number,
           fn player ->
           Map.put(player, :direction, action.direction)
           end)
@@ -41,6 +39,9 @@ defmodule PlayerRegistry.Impl do
   defp move_player(player = %{y: y, direction: :down}) do
     Map.put(player, :y, y + @player_speed)
   end
+  defp move_player(player) do
+    player
+  end
 
   defp apply_movements(state) do
     new_players = Enum.map(state, &move_player/1)
@@ -67,5 +68,7 @@ defmodule PlayerRegistry.Impl do
       timestamp:  0
     }
   end
+
+
 
 end

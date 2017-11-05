@@ -6,7 +6,6 @@ defmodule ImplTest.Impl do
   test "add player to registry" do
     state = Impl.zero_state
     state = Impl.add_player(state, %PlayerRegistry.Player{})
-    IO.inspect(state)
   end
 
 end
