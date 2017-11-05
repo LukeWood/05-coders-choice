@@ -35,13 +35,13 @@ defmodule BulletRegistry.Server do
     reply_good
   end
 
-  def handle_cast({:add_bullet, x, y, direction}, state) do
+  def handle_cast({:add_bullet, x, y, direction, timestamp}, state) do
     pid = ChildrenRegistry.get(self())
     ChangeList.add(
       %Bullet{x: x,
               y: y,
               direction: direction,
-              timestamp: :os.system_time(:millisecond)
+              timestamp: timestamp
     }, pid)
     {:noreply, state}
   end
