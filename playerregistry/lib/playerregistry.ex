@@ -8,9 +8,8 @@ defmodule PlayerRegistry do
   defdelegate add_player(pid, player_id),           to: Client
   defdelegate new_registry(),                       to: PlayerRegistry.Supervisor
 
-
   def start(_type, _opts) do
-
+    
   end
 
 end

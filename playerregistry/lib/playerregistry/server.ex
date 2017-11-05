@@ -38,7 +38,7 @@ defmodule PlayerRegistry.Server do
   end
 
   defp no_reply state do
-    {:no_reply, state}
+    {:noreply, state}
   end
 
   def reply state do

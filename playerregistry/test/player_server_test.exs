@@ -22,7 +22,7 @@ defmodule ImplTest.Server do
     tick(pid, nil, 1000)
 
     player = peek(pid).players |>
-     Enum.at(0)
+     Map.get("Luke")
 
     assert player.direction == :left
     assert player.x == -1
