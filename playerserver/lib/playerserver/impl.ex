@@ -1,16 +1,19 @@
 defmodule PlayerServer.Impl do
 
-  defp apply_actions(state) do
-    actions = state.actions
-    players = Enum.reduce(actions, state.players,
+  defp apply_actions(state = %{actions: actions, players: players}) do
+
+    new_players = Enum.reduce(actions, players,
       fn({player_id, action}, players) ->
         Map.update!(players, player_id,
-          fn player ->
-            Map.put(player, :direction, action)
-            Map.put(player, :moving,    true)
-          end)
+        fn player ->
+          player |>
+          Map.put(:direction, action) |>
+          Map.put(:moving,    true)
+        end)
       end)
-    Map.put(state, :players, players)
+    state |>
+    Map.put(:players, new_players) |>
+    Map.put(:actions, %{})
   end
 
   defp shoot(player, shoot_callback, timestamp) do

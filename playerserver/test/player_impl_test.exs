@@ -11,15 +11,15 @@ defmodule ImplTest.Impl do
     assert players == 1
   end
 
-  test "players can move" do
+  test "players can move up" do
     player = Impl.zero_state |>
     Impl.add_player("Luke", %PlayerServer.Player{}) |>
-    Impl.add_action("Luke", :left) |>
+    Impl.add_action("Luke", :up) |>
     Impl.tick(nil, 0) |>
     Map.get(:players) |>
     Map.get("Luke")
-    assert player.direction == :left
-    assert player.x == -1
+    assert player.direction == :up
+    assert player.y == -1
   end
 
 end
