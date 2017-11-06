@@ -1,7 +1,8 @@
 defmodule Bullet.Supervisor do
 
   def start(x, y, direction) do
-    Agent.start(fn -> %Bullet{x: x, y: y, direction: direction} end)
+    {:ok, pid} = Agent.start(fn -> %Bullet{x: x, y: y, direction: direction} end)
+    pid
   end
 
 end

@@ -13,6 +13,7 @@ defmodule Player.Agent do
 
   def action(pid, action) do
     Agent.update(pid, &(Impl.action(&1, action)))
+    pid
   end
 
 end

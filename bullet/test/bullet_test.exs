@@ -4,13 +4,12 @@ defmodule BulletTest do
   import Bullet
 
   test "Bullet process can be started" do
-    {:ok, bullet_pid} = start(0, 0, :right)
+    bullet_pid = start(0, 0, :right)
     assert bullet_pid != nil
   end
 
   test "Bullets move right" do
-    {:ok, pid} = start(0, 0, :right)
-    state = pid |>
+    state = start(0, 0, :right)|>
     tick |>
     tick |>
     peek
@@ -18,7 +17,7 @@ defmodule BulletTest do
   end
 
   test "bullets die after their lifetime" do
-    {:ok, pid} = state(0, 0, :down)
+    
   end
 
 
