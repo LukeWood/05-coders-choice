@@ -6,8 +6,8 @@ defmodule BouncingbulletWeb.Input do
       { :ok, socket }
     end
 
-    def handle_in("keypress", msg, socket) do
-      broadcast! socket, "type" .....
-    end
+    #def handle_in("keypress", msg, socket) do
+    #  broadcast! socket, "type" .....
+    #end
 
 end
