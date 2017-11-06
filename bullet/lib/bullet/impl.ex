@@ -36,17 +36,27 @@ defmodule Bullet.Impl do
 
   end
 
-  def tick(%{expiration: exp}, timestamp, _) when timestamp > exp do
+  def decrement_lifetime(state) do
+    Map.update!(state, :lifetime, &(&1 - 1))
+  end
+
+  def tick(%{lifetime: 0}, _) do
     die(self())
   end
 
-  def tick(state, timestamp, objects) do
-    state = state |>
-    bullet_update
+  def tick(state, objects) do
+    state = state |> tick
 
     calculate_colissions(state, objects) |>
     handle_colissions
+
     state
+  end
+
+  def tick(state) do
+    state |>
+    bullet_update |>
+    decrement_lifetime
   end
 
   def die(pid) do
