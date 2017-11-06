@@ -1,15 +1,8 @@
 import "phoenix_html"
 
-import socket         from "./socket"
 import draw           from './game/draw';
-import controls       from './game/controls';
+import Controls       from './game/controls';
+import StateHandler   from './game/state_handler';
 
-draw([
-  {
-    x: 25,
-    y: 25,
-    color: '#ccc',
-    radius: 25,
-    direction: "left"
-  }
-], [], [])
+new Controls()
+new StateHandler()

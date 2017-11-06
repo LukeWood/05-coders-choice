@@ -1,8 +1,15 @@
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
-function inverse_color(color) {
-  return "#000"
+function invertColor(hexTripletColor) {
+    var color = hexTripletColor;
+    color = color.substring(1);           // remove #
+    color = parseInt(color, 16);          // convert to integer
+    color = 0xFFFFFF ^ color;             // invert three bytes
+    color = color.toString(16);           // convert to hex
+    color = ("000000" + color).slice(-6); // pad with leading zeros
+    color = "#" + color;                  // prepend #
+    return color;
 }
 
 function drawPlayer(player) {
@@ -11,14 +18,13 @@ function drawPlayer(player) {
   ctx.arc(player.x, player.y, player.radius, 0, 2 * Math.PI);
   ctx.fill();
 
-  ctx.fillStyle = inverse_color(player.color)
-
+  ctx.fillStyle = invertColor(player.color)
   switch(player.direction) {
     case "left":
-      ctx.fillRect(player.x, player.y, player.radius, 2)
+      ctx.fillRect(player.x, player.y, -player.radius, 2)
       break;
     case "right":
-      ctx.fillRect(player.x, player.y, -player.radius, 2)
+      ctx.fillRect(player.x, player.y, player.radius, 2)
       break;
     case "up":
       ctx.fillRect(player.x, player.y, 2, -player.radius)
@@ -30,17 +36,15 @@ function drawPlayer(player) {
 }
 
 function drawBullet(bullet) {
-
+    ctx.fillStyle = bullet.color;
+    ctx.beginPath();
+    ctx.arc(bullet.x, bullet.y, bullet.radius, 0, 2 * Math.PI);
+    ctx.fill();
 }
 
-function drawEdge(edge) {
-
-}
-
-function draw(players, bullets, edges) {
+function draw(players, bullets) {
   players.forEach(drawPlayer);
   bullets.forEach(drawBullet);
-  edges.forEach(drawEdge)
 }
 
 export default draw;
