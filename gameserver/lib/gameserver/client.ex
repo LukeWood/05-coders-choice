@@ -10,7 +10,7 @@ defmodule GameServer.Client do
   def add_player(pid, name) do
     GenServer.call(pid, {:add_player, name})
   end
-  
+
   def player_input(pid, from, action) do
     GenServer.cast(pid, {:player_input, from, action})
   end
