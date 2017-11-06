@@ -21,7 +21,7 @@ defmodule GameServer.Mixfile do
     [
       {:bulletserver,   in_umbrella: true},
       {:keyval,         in_umbrella: true},
-      {:playerserver, in_umbrella: true}
+      {:playerserver,   in_umbrella: true}
     ]
   end
 end

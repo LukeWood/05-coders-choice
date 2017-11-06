@@ -1,5 +1,5 @@
 rm tests.out
-for x in bulletserver gameserver keyval lobbyserver playerserver;
+for x in `find . -maxdepth 1 -execdir -type d`;
 do
 	cd $x
 	echo "######## Testing $x ########" >> ../tests.out
