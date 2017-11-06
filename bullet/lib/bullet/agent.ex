@@ -1,4 +1,4 @@
-defmodule Bullet.Client do
+defmodule Bullet.Agent do
 
   alias Bullet.Impl, as: Impl
 
@@ -17,4 +17,5 @@ defmodule Bullet.Client do
   def peek(pid) do
     Agent.get(pid, &(&1))
   end
+
 end
