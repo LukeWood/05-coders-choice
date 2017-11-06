@@ -1,12 +1,15 @@
 import "phoenix_html"
 
-//import socket from "./socket"
+import socket         from "./socket"
 import draw           from './game/draw';
-import Player         from './game/player';
-import render_lobbies from './index/render_lobbies';
+import controls       from './game/controls';
 
-render_lobbies(
-  [{
-    'name': 'luke'
-  }]
-);
+draw([
+  {
+    x: 25,
+    y: 25,
+    color: '#ccc',
+    radius: 25,
+    direction: "left"
+  }
+], [], [])

@@ -1,13 +1,32 @@
-//let canvas = document.getElementById("game");
-//let ctx = canvas.getContext("2d");
+let canvas = document.getElementById("game");
+let ctx = canvas.getContext("2d");
 
-const PLAYER_RADIUS = 20;
+function inverse_color(color) {
+  return "#000"
+}
 
 function drawPlayer(player) {
-    ctx.fillStyle = player.color;
-    ctx.beginPath();
-    ctx.arc(player.x + PLAYER_RADIUS/2, player.y + PLAYER_RADIUS/2, PLAYER_RADIUS, 0, 2 * Math.PI);
-    ctx.fill();
+  ctx.fillStyle = player.color;
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, player.radius, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.fillStyle = inverse_color(player.color)
+
+  switch(player.direction) {
+    case "left":
+      ctx.fillRect(player.x, player.y, player.radius, 2)
+      break;
+    case "right":
+      ctx.fillRect(player.x, player.y, -player.radius, 2)
+      break;
+    case "up":
+      ctx.fillRect(player.x, player.y, 2, -player.radius)
+      break;
+    case "down":
+      ctx.fillRect(player.x, player.y, 2, player.radius)
+      break;
+  }
 }
 
 function drawBullet(bullet) {
