@@ -3,6 +3,8 @@ defmodule Bullet do
   defdelegate tick(pid, objects),          to: Bullet.Agent
   defdelegate tick(pid),                   to: Bullet.Agent
   defdelegate peek(pid),                   to: Bullet.Agent
+  defdelegate create_event_handler(pid),   to: Bullet.Agent
+
   defdelegate start(x, y, direction),      to: Bullet.Supervisor
 
   defstruct [
