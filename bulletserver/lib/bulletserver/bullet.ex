@@ -1,6 +1,7 @@
-defmodule BulletRegistry.Bullet do
+defmodule BulletServer.Bullet do
 
   @lifetime 10000
+
   defstruct [
     expiration: 0,
     timestamp:  0,
@@ -20,7 +21,7 @@ defmodule BulletRegistry.Bullet do
     create_bullet(:os.system_time(:millisecond), direction, x, y)
   end
   def create_bullet(timestamp, direction, x, y) do
-    %BulletRegistry.Bullet{
+    %BulletServer.Bullet{
       expiration: timestamp + @lifetime,
       timestamp:  timestamp,
       direction:  direction,

@@ -1,4 +1,4 @@
-defmodule BulletRegistry.Impl do
+defmodule BulletServer.Impl do
 
   @bullet_speed 1
 
@@ -33,7 +33,7 @@ defmodule BulletRegistry.Impl do
   end
 
   def tick(state, timestamp, new_bullets) do
-    new_bullets = Enum.map(new_bullets, &BulletRegistry.Bullet.create_bullet/1)
+    new_bullets = Enum.map(new_bullets, &BulletServer.Bullet.create_bullet/1)
     Map.update!(state, :bullets, fn bullets -> bullets ++ new_bullets end) |>
     tick(timestamp)
   end

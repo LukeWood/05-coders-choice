@@ -1,19 +1,19 @@
-defmodule BulletRegistry.Server do
+defmodule BulletServer.Server do
   use GenServer
 
-  alias BulletRegistry.Bullet,          as: Bullet
-  alias BulletRegistry.ChangeList,      as: ChangeList
-  alias BulletRegistry.Impl,            as: Impl
+  alias BulletServer.Bullet,          as: Bullet
+  alias BulletServer.ChangeList,      as: ChangeList
+  alias BulletServer.Impl,            as: Impl
   alias KeyVal,                         as: ChildrenRegistry
 
   def start_link(name) do
-    GenServer.start_link(BulletRegistry.Server,
-      BulletRegistry.Impl.new_registry,
+    GenServer.start_link(BulletServer.Server,
+      BulletServer.Impl.new_registry,
       name: name)
   end
 
   def start_link() do
-    start_link(BulletRegistry)
+    start_link(BulletServer)
   end
 
   def handle_call({:add_bullet, bullet}, _from, state) do
@@ -22,11 +22,11 @@ defmodule BulletRegistry.Server do
     {:reply, :ok, state}
   end
 
-  def handle_call({:tick}, _from, state) do
+  def handle_call({:tick, timestamp}, _from, state) do
     pid = ChildrenRegistry.get(self())
     new_bullets = ChangeList.flush_changes(pid)
     state |>
-    Impl.tick(:os.system_time(:millisecond), new_bullets) |>
+    Impl.tick(timestamp, new_bullets) |>
     reply_good
   end
 
@@ -35,13 +35,13 @@ defmodule BulletRegistry.Server do
     reply_good
   end
 
-  def handle_cast({:add_bullet, x, y, direction}, state) do
+  def handle_cast({:add_bullet, x, y, direction, timestamp}, state) do
     pid = ChildrenRegistry.get(self())
     ChangeList.add(
       %Bullet{x: x,
               y: y,
               direction: direction,
-              timestamp: :os.system_time(:millisecond)
+              timestamp: timestamp
     }, pid)
     {:noreply, state}
   end
