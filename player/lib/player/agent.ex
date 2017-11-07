@@ -7,10 +7,10 @@ defmodule Player.Agent do
   end
 
   def start(x, y) do
-    {:ok, pid} = Agent.start(fn -> %Player{x: x, y: y})
+    {:ok, pid} = Agent.start(fn -> %Player{x: x, y: y} end)
     pid
   end
-  
+
   def create_event_handler(pid) do
     fn _ ->
       tick(pid)

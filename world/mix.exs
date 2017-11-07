@@ -1,6 +1,6 @@
 defmodule World.Mixfile do
   use Mix.Project
-  
+
   def project do
     [
       app: :world,
@@ -19,6 +19,8 @@ defmodule World.Mixfile do
 
   defp deps do
     [
+      {:bullet, in_umbrella: true},
+      {:player, in_umbrella: true}
     ]
   end
 end

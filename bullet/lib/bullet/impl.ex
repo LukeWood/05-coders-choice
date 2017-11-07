@@ -22,13 +22,25 @@ defmodule Bullet.Impl do
     )
   end
 
-  def did_collide(x1, x2, y1, y2, radius) do
+  defp did_collide(x1, x2, y1, y2, radius) do
     distance(x1, x2, y1, y2) < radius + @bullet_radius
   end
 
+  defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
+    did_collide(x1, x2, y1, y2, radius)
+  end
+
+  defp filter_fn(x1, y1, obj = %{x: _x2, y: _y2, radius: _radius}) do
+    inner_filter(x1, y1, obj)
+  end
+
+  defp filter_fn(x1, y1, agent_pid) do
+    inner_filter(x1, y1, Agent.get(agent_pid, &(&1)))
+  end
+
   def calculate_collisions(%{x: x1, y: y1 }, objects) do
-    Enum.filter(objects, fn %{x: x2, y: y2, radius: radius} ->
-      did_collide(x1, x2, y1, y2, radius)
+    Enum.filter(objects, fn object ->
+      filter_fn(x1, y1, object)
     end)
   end
 
