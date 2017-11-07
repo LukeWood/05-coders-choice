@@ -18,7 +18,7 @@ defmodule Bullet.Impl do
 
   def distance(x1, x2, y1, y2) do
     :math.sqrt(
-      :math.pow(x1-x2, 2) - :math.pow(y1-y2, 2)
+      :erlang.abs(:math.pow(x1-x2, 2) - :math.pow(y1-y2, 2))
     )
   end
 
@@ -26,14 +26,10 @@ defmodule Bullet.Impl do
     distance(x1, x2, y1, y2) < radius + @bullet_radius
   end
 
-  def calculate_colissions(%{x: x1, y: y1 }, objects) do
+  def calculate_collisions(%{x: x1, y: y1 }, objects) do
     Enum.filter(objects, fn %{x: x2, y: y2, radius: radius} ->
       did_collide(x1, x2, y1, y2, radius)
     end)
-  end
-
-  def handle_colissions(_colissions) do
-
   end
 
   def decrement_lifetime(state) do
@@ -44,22 +40,13 @@ defmodule Bullet.Impl do
     die(self())
   end
 
-  def tick(state, objects) do
-    state = state |> tick
-
-    calculate_colissions(state, objects) |>
-    handle_colissions
-
-    state
-  end
-
   def tick(state) do
     state |>
     bullet_update |>
     decrement_lifetime
   end
 
-  def die(pid) do
+  def die(_pid) do
     nil
   end
 

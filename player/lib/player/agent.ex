@@ -1,7 +1,16 @@
 defmodule Player.Agent do
 
   alias Player.Impl, as: Impl
+  def start do
+    {:ok, pid} = Agent.start(fn -> %Player{} end)
+    pid
+  end
 
+  def start(x, y) do
+    {:ok, pid} = Agent.start(fn -> %Player{x: x, y: y})
+    pid
+  end
+  
   def create_event_handler(pid) do
     fn _ ->
       tick(pid)
