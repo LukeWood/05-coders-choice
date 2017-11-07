@@ -7,15 +7,16 @@ defmodule Bullet.Agent do
     pid
   end
 
-  def tick(pid, objects) do
-    Agent.update(pid, fn state ->
-      Impl.tick(state, objects)
-    end)
-    pid
+  def find_collisions(pid, objects) do
+    Agent.get(pid, &(Impl.calculate_collisions(&1, objects)))
   end
 
   def peek(pid) do
     Agent.get(pid, &(&1))
+  end
+
+  def start(x, y, direction) do
+    Agent.start(fn -> %Bullet{x: x, y: y, direction: direction} end)
   end
 
 end

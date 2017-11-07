@@ -18,22 +18,30 @@ defmodule Bullet.Impl do
 
   def distance(x1, x2, y1, y2) do
     :math.sqrt(
-      :math.pow(x1-x2, 2) - :math.pow(y1-y2, 2)
+      :erlang.abs(:math.pow(x1-x2, 2) - :math.pow(y1-y2, 2))
     )
   end
 
-  def did_collide(x1, x2, y1, y2, radius) do
+  defp did_collide(x1, x2, y1, y2, radius) do
     distance(x1, x2, y1, y2) < radius + @bullet_radius
   end
 
-  def calculate_colissions(%{x: x1, y: y1 }, objects) do
-    Enum.filter(objects, fn %{x: x2, y: y2, radius: radius} ->
-      did_collide(x1, x2, y1, y2, radius)
-    end)
+  defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
+    did_collide(x1, x2, y1, y2, radius)
   end
 
-  def handle_colissions(_colissions) do
+  defp filter_fn(x1, y1, obj = %{x: _x2, y: _y2, radius: _radius}) do
+    inner_filter(x1, y1, obj)
+  end
 
+  defp filter_fn(x1, y1, agent_pid) do
+    inner_filter(x1, y1, Agent.get(agent_pid, &(&1)))
+  end
+
+  def calculate_collisions(%{x: x1, y: y1 }, objects) do
+    Enum.filter(objects, fn object ->
+      filter_fn(x1, y1, object)
+    end)
   end
 
   def decrement_lifetime(state) do
@@ -44,22 +52,13 @@ defmodule Bullet.Impl do
     die(self())
   end
 
-  def tick(state, objects) do
-    state = state |> tick
-
-    calculate_colissions(state, objects) |>
-    handle_colissions
-
-    state
-  end
-
   def tick(state) do
     state |>
     bullet_update |>
     decrement_lifetime
   end
 
-  def die(pid) do
+  def die(_pid) do
     nil
   end
 
