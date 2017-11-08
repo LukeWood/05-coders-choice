@@ -1,5 +1,11 @@
 defmodule Observable do
 
+  defmacro __using__(_) do
+    quote do
+      emit(__MODULE__, arg)
+    end
+  end
+
   @observer_registry :ObserverRegistry
 
   def start(_type, _args) do
@@ -18,15 +24,16 @@ defmodule Observable do
     end)
   end
 
-
   def register(emitter_pid) do
+    Agent.update(@observer_registry, fn state ->
+       Map.put(state, emitter_pid, [])
+    end)
   end
 
   def emit(emitter_pid, arg) do
     observers(emitter_pid) |>
     Enum.map(fn pid ->
-      GenServer.cast(pid, arg)
-      # GenServer.cast pid, arg
+      GenServer.cast(pid, {arg})
     end)
   end
 
