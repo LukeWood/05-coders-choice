@@ -1,13 +1,13 @@
 defmodule ClockTest do
   use ExUnit.Case
 
+  # Helper genserver
   defmodule TestSubscribed do
     use GenServer
 
     def handle_call({:peek}, _from, state) do
       {:reply, state, state}
     end
-
     def handle_cast({:tick}, _) do
       {:noreply, :ticked}
     end
