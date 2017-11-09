@@ -15,7 +15,7 @@ defmodule Observable do
   end
 
   defp observers(pid) do
-    Agent.get(@observer_registry, fn state -> Map.get(state, pid) end)
+    Agent.get(@observer_registry, fn state -> Map.get(state, pid, []) end)
   end
 
   def unsubscribe(emitter_pid, pid) do
