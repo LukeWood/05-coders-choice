@@ -5,14 +5,17 @@ defmodule Bullet.Supervisor do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
-  def new(unique_name) do
-    spec = worker(Bullet.Server, [], [id: unique_name, restart: :transient])
-    Supervisor.start_link(Bullet.Supervisor, spec)
+  def new do
+    Supervisor.start_child(__MODULE__, [])
   end
 
-  def init(_) do
+  def new(name) do
+    Supervisor.start_child(__MODULE__, [name])
+  end
+
+  def init(:ok) do
     children =[
-      worker(Bullet.Server, [])
+      worker(Bullet.Server, [], restart: :temporary)
     ]
     opts = [
       strategy: :simple_one_for_one

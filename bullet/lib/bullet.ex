@@ -1,6 +1,8 @@
 defmodule Bullet do
 
-  defdelegate new(name), to: Bullet.Supervisor
+  defdelegate start_link(), to: Bullet.Server
+  defdelegate new,          to: Bullet.Supervisor
+  defdelegate new(name),    to: Bullet.Supervisor
 
   defstruct [
     world: nil,
