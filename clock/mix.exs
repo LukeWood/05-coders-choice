@@ -1,9 +1,9 @@
-defmodule Bullet.Mixfile do
+defmodule Clock.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :bullet,
+      app: :clock,
       version: "0.1.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
@@ -15,7 +15,7 @@ defmodule Bullet.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Bullet.Supervisor, []}
+      mod: {Clock, []}
     ]
   end
 
@@ -23,8 +23,6 @@ defmodule Bullet.Mixfile do
   defp deps do
     [
       {:observable, in_umbrella: true}
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
   end
 end

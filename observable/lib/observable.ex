@@ -2,7 +2,9 @@ defmodule Observable do
 
   defmacro __using__(_) do
     quote do
-      emit(__MODULE__, arg)
+      def emit(arg) do
+        Observable.emit(__MODULE__, arg)
+      end
     end
   end
 
@@ -13,7 +15,7 @@ defmodule Observable do
   end
 
   defp observers(pid) do
-    Agent.get(@observer_registry, fn state -> Map.get(state, pid) end)
+    Agent.get(@observer_registry, fn state -> Map.get(state, pid, []) end)
   end
 
   def unsubscribe(emitter_pid, pid) do
@@ -33,15 +35,15 @@ defmodule Observable do
   def emit(emitter_pid, arg) do
     observers(emitter_pid) |>
     Enum.map(fn pid ->
-      GenServer.cast(pid, {arg})
+      GenServer.cast(pid, arg)
     end)
   end
 
-  def subscribe(emitter_pid, observer_pid) do
+  def observe(emitter_pid, observer_pid) do
     Agent.update(@observer_registry, fn state ->
         Map.update(state,
         emitter_pid,
-        [],
+        [observer_pid],
         fn children ->
            [observer_pid | children]
         end)
