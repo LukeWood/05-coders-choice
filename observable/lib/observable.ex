@@ -2,7 +2,9 @@ defmodule Observable do
 
   defmacro __using__(_) do
     quote do
-      emit(__MODULE__, arg)
+      def emit(arg) do
+        Observable.emit(__MODULE__, arg)
+      end
     end
   end
 
