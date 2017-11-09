@@ -35,15 +35,15 @@ defmodule Observable do
   def emit(emitter_pid, arg) do
     observers(emitter_pid) |>
     Enum.map(fn pid ->
-      GenServer.cast(pid, {arg})
+      GenServer.cast(pid, arg)
     end)
   end
 
-  def subscribe(emitter_pid, observer_pid) do
+  def observe(emitter_pid, observer_pid) do
     Agent.update(@observer_registry, fn state ->
         Map.update(state,
         emitter_pid,
-        [],
+        [observer_pid],
         fn children ->
            [observer_pid | children]
         end)
