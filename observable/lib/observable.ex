@@ -8,18 +8,16 @@ defmodule Observable do
     end
   end
 
-  @observer_registry :ObserverRegistry
-
   def start(_type, _args) do
-    Agent.start(fn -> %{} end, name: @observer_registry)
+    Agent.start(fn -> %{} end, name: __MODULE__)
   end
 
   defp observers(pid) do
-    Agent.get(@observer_registry, fn state -> Map.get(state, pid, []) end)
+    Agent.get(__MODULE__, fn state -> Map.get(state, pid, []) end)
   end
 
   def unsubscribe(emitter_pid, pid) do
-    Agent.update(@observer_registry, fn state ->
+    Agent.update(__MODULE__, fn state ->
       Map.update(state, emitter_pid, [], fn children ->
         Enum.filter(children, fn child -> child != pid end)
       end)
@@ -27,7 +25,7 @@ defmodule Observable do
   end
 
   def register(emitter_pid) do
-    Agent.update(@observer_registry, fn state ->
+    Agent.update(__MODULE__, fn state ->
        Map.put(state, emitter_pid, [])
     end)
   end
@@ -40,7 +38,7 @@ defmodule Observable do
   end
 
   def observe(emitter_pid, observer_pid) do
-    Agent.update(@observer_registry, fn state ->
+    Agent.update(__MODULE__, fn state ->
         Map.update(state,
         emitter_pid,
         [observer_pid],
