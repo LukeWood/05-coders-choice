@@ -8,8 +8,8 @@ defmodule Bullet.Server do
     {:ok, pid}
   end
 
-  def start_link(name) do
-    {:ok, pid} = GenServer.start_link(__MODULE__, %Bullet{}, name: name)
+  def start_link(state) do
+    {:ok, pid} = GenServer.start_link(__MODULE__, state)
     Observable.observe(Clock, pid)
     {:ok, pid}
   end

@@ -8,9 +8,9 @@ defmodule Bullet.Supervisor do
   def new do
     Supervisor.start_child(__MODULE__, [])
   end
-
-  def new(name) do
-    Supervisor.start_child(__MODULE__, [name])
+  
+  def new(_player = %{x: x, y: y, direction: direction}, world_pid) do
+    Supervisor.start_child(__MODULE__, [%Bullet{x: x, y: y, direction: direction, world: world_pid}])
   end
 
   def init(:ok) do
