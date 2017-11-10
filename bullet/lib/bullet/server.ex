@@ -14,7 +14,7 @@ defmodule Bullet.Server do
     {:ok, pid}
   end
 
-  def handle_call({:peek}, state) do
+  def handle_call({:peek}, _from, state) do
     {:reply, state, state}
   end
 
@@ -23,7 +23,7 @@ defmodule Bullet.Server do
   end
 
   def handle_cast({:tick}, state ) do
-    new_state = Impl.tick(state) |> IO.inspect
+    new_state = Impl.tick(state)
     {:noreply, new_state}
   end
 

@@ -6,8 +6,10 @@ defmodule BulletTest do
     assert pid != nil
   end
 
-  test "Bullet " do
-    
+  test "Bullet moves when tick is called" do
+    {:ok, pid} = Bullet.new
+    Observable.emit(Clock, {:tick})
+    assert Bullet.peek(pid) |> Map.get(:x) == -1
   end
 
 end
