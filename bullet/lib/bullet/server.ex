@@ -14,6 +14,10 @@ defmodule Bullet.Server do
     {:ok, pid}
   end
 
+  def handle_call({:peek}, state) do
+    {:reply, state, state}
+  end
+
   def handle_cast({:tick}, state = %{lifetime: 0}) do
     {:stop, :normal, state}
   end
