@@ -2,12 +2,9 @@ defmodule Player do
 
   @radius 25
 
-  defdelegate start,                     to: Player.Agent
-  defdelegate start(x, y),               to: Player.Agent
-  defdelegate tick(pid),                 to: Player.Agent
-  defdelegate peek(pid),                 to: Player.Agent
-  defdelegate action(pid, action),       to: Player.Agent
-  defdelegate create_event_handler(pid), to: Player.Agent
+  defdelegate new,                 to: Player.Supervisor
+  defdelegate peek(pid),           to: Player.Client
+  defdelegate action(pid, action), to: Player.Client
 
   defstruct [
     x:            0,

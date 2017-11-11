@@ -1,12 +1,13 @@
 defmodule Bullet do
 
-  defdelegate tick(pid),                      to: Bullet.Agent
-  defdelegate peek(pid),                      to: Bullet.Agent
-  defdelegate find_collisions(pid, objects),  to: Bullet.Agent
-  defdelegate start(x, y, direction),         to: Bullet.Agent
+  defdelegate start_link,             to: Bullet.Server
+  defdelegate peek(pid),              to: Bullet.Client
+  defdelegate new,                    to: Bullet.Supervisor
+  defdelegate new(player, world_pid), to: Bullet.Supervisor
 
   defstruct [
-    lifetime:   100,
+    world: nil,
+    lifetime:   10,
     x:          0,
     y:          0,
     direction:  :left
