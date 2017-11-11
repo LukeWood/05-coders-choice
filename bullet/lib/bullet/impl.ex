@@ -50,9 +50,16 @@ defmodule Bullet.Impl do
     die(self())
   end
 
+  def tick(state = %{world: nil}) do
+    state |>
+    move_bullet |>
+    decrement_lifetime
+  end
+
   def tick(state) do
     state |>
     move_bullet |>
+    # get players, kill player processes
     decrement_lifetime
   end
 

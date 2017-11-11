@@ -8,10 +8,14 @@ defmodule Bullet.Server do
     {:ok, pid}
   end
 
-  def start_link(name) do
-    {:ok, pid} = GenServer.start_link(__MODULE__, %Bullet{}, name: name)
+  def start_link(state) do
+    {:ok, pid} = GenServer.start_link(__MODULE__, state)
     Observable.observe(Clock, pid)
     {:ok, pid}
+  end
+
+  def handle_call({:peek}, _from, state) do
+    {:reply, state, state}
   end
 
   def handle_cast({:tick}, state = %{lifetime: 0}) do
@@ -19,7 +23,7 @@ defmodule Bullet.Server do
   end
 
   def handle_cast({:tick}, state ) do
-    new_state = Impl.tick(state) |> IO.inspect
+    new_state = Impl.tick(state)
     {:noreply, new_state}
   end
 
