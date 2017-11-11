@@ -12,7 +12,7 @@ defmodule Player.Server do
     {:reply, state, state}
   end
 
-  def handle_cast({:action, action}, _from, state) do
+  def handle_cast({:action, action}, state) do
     {:noreply, Impl.action(state, action)}
   end
 

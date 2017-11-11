@@ -4,26 +4,13 @@ defmodule PlayerTest do
   import Player
 
   test "Create a player" do
-    pid = start()
+    {:ok, pid} = new()
     assert pid != nil
   end
 
-  test "move our player" do
-    %{x: x, y: y, direction: dir, moving: moving} = start() |>
-    action(:left) |>
-    tick() |>
-    tick() |>
-    action(:up) |>
-    tick() |>
-    tick() |>
-    action(:stop) |>
-    tick() |>
-    tick() |>
-    peek()
-
-    assert x == -2
-    assert y == -2
-    assert dir == :up
-    assert moving == false
+  test "Actions update our player" do
+    {:ok, pid} = new()
+    action(pid, :left)
+    assert peek(pid) |> Map.get(:direction) == :left
   end
 end
