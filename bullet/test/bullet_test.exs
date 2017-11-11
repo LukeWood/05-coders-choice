@@ -14,6 +14,7 @@ defmodule BulletTest do
         assert Bullet.peek(pid) |> Map.get(:x) == 101
       end
   end
+  
   describe "bullets will " do
     test "move when tick is called" do
       {:ok, pid} = Bullet.new
