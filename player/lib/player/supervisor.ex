@@ -8,6 +8,9 @@ defmodule Player.Supervisor do
   def new do
     Supervisor.start_child(__MODULE__, [])
   end
+  def new(pid) do
+    Supervisor.start_child(__MODULE__, [pid])
+  end
 
   def init(:ok) do
     children =[

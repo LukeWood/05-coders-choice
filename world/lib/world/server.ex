@@ -1,19 +1,16 @@
 defmodule World.Server do
   use GenServer
 
-#    defstruct [
-#      bullets: [],
-#      players: [],
-#    ]
-  alias World.Impl, as: Impl
-
-  def start do
-    GenServer.start_link(World.Server, %World{})
+  def start_link do
+    GenServer.start_link(__MODULE__, %World{})
   end
 
-  def handle_cast({:tick}, state) do
-    state = Impl.tick(state)
-    {:noreply, state}
+  def handle_call({:get_players}, _from, state) do
+    {:reply, Map.get(state, :players), state}
+  end
+
+  def handle_cast({:new_player, player}, state) do
+    {:noreply, Map.update!(state, :players, fn players -> [player | players] end)}
   end
 
 end
