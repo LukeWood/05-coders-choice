@@ -8,6 +8,12 @@ defmodule Player.Server do
     {:ok, pid}
   end
 
+  def start_link(world) do
+    {:ok, pid} = GenServer.start_link(__MODULE__, %Player{world: world})
+    Observable.observe(Clock, pid)
+    {:ok, pid}
+  end
+
   def handle_call({:peek}, _from, state) do
     {:reply, state, state}
   end
