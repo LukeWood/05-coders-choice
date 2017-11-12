@@ -1,15 +1,15 @@
 defmodule World do
 
-  alias World.Client, as: Client
-  alias World.Server, as: Server
+  alias World.Client,     as: Client
+  alias World.Supervisor, as: Supervisor
+  alias World.Server,     as: Server
 
-  defdelegate tick(pid),           to: Client
-  defdelegate request_player(pid), to: Client
+  defdelegate get_players(pid), to: Client
+  defdelegate start_link,       to: Server
 
-  defdelegate start,               to: Server
+  defdelegate new,              to: Supervisor
 
   defstruct [
-    bullets: [],
     players: [],
   ]
 
