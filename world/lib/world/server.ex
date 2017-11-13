@@ -14,6 +14,7 @@ defmodule World.Server do
   end
 
   def handle_cast({:remove_player, player}, state) do
+    Process.exit(player, :killed)
     {:noreply, Map.update!(state, :players, fn players ->
       Enum.filter(players, fn p -> p != player end)
     end)}

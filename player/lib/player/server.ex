@@ -20,10 +20,6 @@ defmodule Player.Server do
     {:reply, state, state}
   end
 
-  def handle_call({:get}, _from, state) do
-
-  end
-
   def handle_cast({:action, action}, state) do
     {:noreply, Impl.action(state, action)}
   end
@@ -32,9 +28,9 @@ defmodule Player.Server do
     {:noreply, Impl.tick(state)}
   end
 
-  def terminate(reason, state = %{world: world}) do
+  def terminate(_reason, _state = %{world: world}) do
     World.remove_player(world, self())
     :normal
   end
-  
+
 end
