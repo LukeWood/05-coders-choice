@@ -8,4 +8,8 @@ defmodule World.Client do
       GenServer.cast(pid, {:new_player, player})
     end
 
+    def remove_player(pid, player) do
+      GenServer.cast(pid, {:remove_player, player})
+    end
+
 end
