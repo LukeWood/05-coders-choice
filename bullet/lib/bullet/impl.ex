@@ -28,21 +28,21 @@ defmodule Bullet.Impl do
   defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
     did_collide(x1, x2, y1, y2, radius)
   end
-  defp find_collisions(x1, y1, obj = %{x: _x2, y: _y2, radius: _radius}) do
-    inner_filter(x1, y1, obj)
-  end
   defp find_collisions(x1, y1, pid) do
     inner_filter(x1, y1, GenServer.call(pid, {:peek}))
   end
 
-  def calculate_collisions(%{x: x1, y: y1 }, objects) do
-    Enum.filter(objects, fn object ->
-      find_collisions(x1, y1, object)
+  def calculate_collisions(%{x: x1, y: y1 }, players) do
+    Enum.filter(players, &Process.alive?/1) |>
+    Enum.filter(fn pid ->
+      find_collisions(x1, y1, pid)
     end)
   end
-
-  def apply_collisions(colls) do
-    IO.inspect(colls)
+  def apply_collisions(colls, world) do
+    Enum.filter(colls, &Process.alive?/1) |>
+    Enum.map(fn col_pid ->
+      World.remove_player(world, col_pid)
+    end)
   end
 
   def decrement_lifetime(state) do
@@ -60,9 +60,8 @@ defmodule Bullet.Impl do
   end
 
   def tick(state = %{world: world}) do
-
     calculate_collisions(state, World.get_players(world)) |>
-    apply_collisions
+    apply_collisions(world)
 
     state |>
     move_bullet |>
