@@ -13,4 +13,10 @@ defmodule World.Server do
     {:noreply, Map.update!(state, :players, fn players -> [player | players] end)}
   end
 
+  def handle_cast({:remove_player, player}, state) do
+    {:noreply, Map.update!(state, :players, fn players ->
+      Enum.filter(players, fn p -> p != player end)
+    end)}
+  end
+
 end
