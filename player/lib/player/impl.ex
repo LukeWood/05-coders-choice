@@ -21,8 +21,8 @@ defmodule Player.Impl do
   end
 
   defp shoot_if_shooting(player = %{shoot: true}) do
-    # SHOOT
-    player
+    Bullet.new(player)
+    Map.put(player, :shoot, false)
   end
 
   defp shoot_if_shooting(player) do

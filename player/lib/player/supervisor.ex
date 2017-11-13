@@ -8,6 +8,9 @@ defmodule Player.Supervisor do
   def new do
     Supervisor.start_child(__MODULE__, [])
   end
+  def new(world) do
+    Supervisor.start_child(__MODULE__, [world])
+  end
 
   def init(:ok) do
     children =[

@@ -13,14 +13,13 @@ defmodule World.Mixfile do
 
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {World.Supervisor, []}
     ]
   end
 
   defp deps do
     [
-      {:bullet, in_umbrella: true},
-      {:player, in_umbrella: true}
     ]
   end
 end
