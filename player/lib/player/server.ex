@@ -5,6 +5,7 @@ defmodule Player.Server do
   def start_link() do
     {:ok, pid} = GenServer.start_link(__MODULE__, %Player{})
     Observable.observe(Clock, pid)
+    Process.flag(:trap_exit, true)
     {:ok, pid}
   end
 
@@ -31,4 +32,9 @@ defmodule Player.Server do
     {:noreply, Impl.tick(state)}
   end
 
+  def terminate(reason, state = %{world: world}) do
+    World.remove_player(world, self())
+    :normal
+  end
+  
 end
