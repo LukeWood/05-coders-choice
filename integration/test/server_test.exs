@@ -1,4 +1,5 @@
-defmodule ServerTest do
+defmodule IntegrationTest do
+  
   use ExUnit.Case
   test "Player 1 lives, Player 2 dies" do
     {:ok, world} = World.new
