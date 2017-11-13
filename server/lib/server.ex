@@ -1,4 +1,0 @@
-  
-defmodule Server do
-
-end
