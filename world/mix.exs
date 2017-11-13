@@ -20,8 +20,6 @@ defmodule World.Mixfile do
 
   defp deps do
     [
-      {:bullet, in_umbrella: true},
-      {:player, in_umbrella: true}
     ]
   end
 end

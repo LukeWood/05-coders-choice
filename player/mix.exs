@@ -22,7 +22,9 @@ defmodule Player.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:observable, in_umbrella: true}
+      {:observable, in_umbrella: true},
+      {:bullet, in_umbrella: true},
+      {:world, in_umbrella: true}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]

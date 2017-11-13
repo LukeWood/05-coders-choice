@@ -32,14 +32,18 @@ defmodule Bullet.Impl do
   defp find_collisions(x1, y1, obj = %{x: _x2, y: _y2, radius: _radius}) do
     inner_filter(x1, y1, obj)
   end
-  defp find_collisions(x1, y1, agent_pid) do
-    inner_filter(x1, y1, Agent.get(agent_pid, &(&1)))
+  defp find_collisions(x1, y1, pid) do
+    inner_filter(x1, y1, GenServer.call(pid, {:peek}))
   end
 
   def calculate_collisions(%{x: x1, y: y1 }, objects) do
     Enum.filter(objects, fn object ->
       find_collisions(x1, y1, object)
     end)
+  end
+
+  def apply_collisions(colls) do
+    IO.inspect(colls)
   end
 
   def decrement_lifetime(state) do
@@ -56,7 +60,11 @@ defmodule Bullet.Impl do
     decrement_lifetime
   end
 
-  def tick(state) do
+  def tick(state = %{world: world}) do
+
+    calculate_collisions(state, World.get_players(world)) |>
+    apply_collisions
+
     state |>
     move_bullet |>
     # get players, kill player processes
