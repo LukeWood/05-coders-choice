@@ -2,16 +2,16 @@ defmodule Bullet.Impl do
 
   @bullet_speed 1
 
-  defp move_bullet(bullet = %{:direction => :left}) do
+  defp move_bullet(bullet = %{direction: :left}) do
     Map.update!(bullet, :x, fn x -> x - @bullet_speed end)
   end
-  defp move_bullet(bullet = %{:direction => :right}) do
+  defp move_bullet(bullet = %{direction: :right}) do
     Map.update!(bullet, :x, fn x -> x + @bullet_speed end)
   end
-  defp move_bullet(bullet = %{:direction => :up}) do
+  defp move_bullet(bullet = %{direction: :up}) do
     Map.update!(bullet, :y, fn y -> y - @bullet_speed end)
   end
-  defp move_bullet(bullet = %{:direction => :down}) do
+  defp move_bullet(bullet = %{direction: :down}) do
     Map.update!(bullet, :y, fn y -> y + @bullet_speed end)
   end
 

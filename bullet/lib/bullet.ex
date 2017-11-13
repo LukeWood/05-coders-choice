@@ -14,7 +14,7 @@ defmodule Bullet do
 
   defstruct [
     world: nil,
-    lifetime:   10,
+    lifetime:   100,
     x:          0,
     y:          0,
     direction:  :left
