@@ -1,6 +1,6 @@
 defmodule Player do
 
-  @radius 25
+  @radius 5
 
   defdelegate new,                 to: Player.Supervisor
   defdelegate new(pid),            to: Player.Supervisor

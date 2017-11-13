@@ -1,7 +1,6 @@
 defmodule Bullet.Impl do
 
   @bullet_speed 1
-  @bullet_radius 5
 
   defp move_bullet(bullet = %{:direction => :left}) do
     Map.update!(bullet, :x, fn x -> x - @bullet_speed end)
@@ -23,7 +22,7 @@ defmodule Bullet.Impl do
   end
 
   defp did_collide(x1, x2, y1, y2, radius) do
-    distance(x1, x2, y1, y2) < radius + @bullet_radius
+    distance(x1, x2, y1, y2) < radius + Bullet.radius
   end
 
   defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
