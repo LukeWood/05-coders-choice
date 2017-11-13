@@ -17,6 +17,17 @@ defmodule IntegrationTest do
     assert !Process.alive?(p2)
   end
 
+  test "We can't shoot ourself" do
+    {:ok, world} = World.new
+    {:ok, p1} = Player.new world
+    import Player
+    action(p1, :left)
+    :timer.sleep(100)
+    action(p1, :shoot)
+    :timer.sleep(1000)
+    assert Process.alive?(p1)
+  end
+
   test "Dead men shoot no bullets" do
     {:ok, world} = World.new
     {:ok, p1} = Player.new world
