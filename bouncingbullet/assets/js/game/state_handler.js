@@ -10,6 +10,7 @@ class StateHandler {
 
   register_updates() {
     this.channel.on("bullet", player => {
+      
     });
     this.channel.on("player", player => {
       console.log(msg);
