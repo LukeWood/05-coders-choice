@@ -1,9 +1,9 @@
-defmodule Player.Mixfile do
+defmodule Move.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :player,
+      app: :move,
       version: "0.1.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
@@ -14,19 +14,13 @@ defmodule Player.Mixfile do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Player.Supervisor, []}
+      extra_applications: [:logger]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:observable, in_umbrella: true},
-      {:bullet, in_umbrella: true},
-      {:world, in_umbrella: true},
-      {:constants, in_umbrella: true},
-      {:move, in_umbrella: true}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
