@@ -1,7 +1,5 @@
 defmodule Player do
 
-  @radius 5
-
   defdelegate new,                 to: Player.Supervisor
   defdelegate new(pid),            to: Player.Supervisor
   defdelegate peek(pid),           to: Player.Client
@@ -13,7 +11,7 @@ defmodule Player do
     direction:    :left,
     moving:       false,
     reload_time:  0,
-    radius:       @radius,
+    radius:       Constants.player_radius,
     world:        nil
   ]
 

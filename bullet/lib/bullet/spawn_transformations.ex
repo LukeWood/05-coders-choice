@@ -1,7 +1,7 @@
 defmodule Bullet.SpawnTransformations do
 
   def dx do
-    5 + Bullet.radius + 1
+    Constants.bullet_radius + Constants.player_radius + 1
   end
 
   def transform_player(player = %{direction: :left}) do
