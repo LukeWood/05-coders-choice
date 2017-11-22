@@ -1,20 +1,19 @@
 defmodule Player.Impl do
 
-  @player_speed 1
   defp move_player(player = %{moving: false}) do
     player
   end
   defp move_player(player = %{x: x, direction: :left}) do
-    Map.put(player, :x, x - @player_speed)
+    Map.put(player, :x, x - Constants.player_speed)
   end
   defp move_player(player = %{x: x, direction: :right}) do
-    Map.put(player, :x, x + @player_speed)
+    Map.put(player, :x, x + Constants.player_speed)
   end
   defp move_player(player = %{y: y, direction: :up}) do
-    Map.put(player, :y, y - @player_speed)
+    Map.put(player, :y, y - Constants.player_speed)
   end
   defp move_player(player = %{y: y, direction: :down}) do
-    Map.put(player, :y, y + @player_speed)
+    Map.put(player, :y, y + Constants.player_speed)
   end
   defp move_player(player) do
     player
