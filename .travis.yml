@@ -11,5 +11,9 @@ env:
   - TEST_DIR=player
   - TEST_DIR=world
   - TEST_DIR=integration
-install: cd $TEST_DIR && mix local.rebar --force && mix local.hex --force && mix deps.get && cd ..
-script: cd $TEST_DIR && mix test
+install: 
+  - cd $TEST_DIR 
+  - mix local.rebar --force
+  - mix local.hex --force 
+  - mix deps.get
+script: mix test
