@@ -32,15 +32,27 @@ defmodule Player.Impl do
 end
 
 defimpl Move, for: Player do
-  # TODO(lukewood) fill this in
-  defp valid_move?(%{}), do: true
-  defp valid_move?(_),   do: true
+
+  defp valid_move?(%{x: x, direction: :left}) do
+    x < Constants.player_radius
+  end
+  defp valid_move?(%{x: x, direction: :right}) do
+    x > Constants.game_width - Constants.player_radius
+  end
+  defp valid_move?(%{y: y, direction: :up}) do
+    y < Constants.player_radius
+  end
+  defp valid_move?(%{y: y, direction: :down}) do
+    y > Constants.game_height - Constants.player_radius
+  end
+  defp valid_move?(player) do
+    true
+  end
 
   defp apply_move(player = %{moving: false}) do
     player
   end
   defp apply_move(player = %{x: x, direction: :left}) do
-
     Map.put(player, :x, x - Constants.player_speed)
   end
   defp apply_move(player = %{x: x, direction: :right}) do
