@@ -1,7 +1,7 @@
 defmodule Bullet.Supervisor do
   use Supervisor
 
-  alias Bullet.SpawnTransformations, as: Transformations
+  alias Bullet.Transformations, as: Transformations
 
   def start(_opts, _args) do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
@@ -15,7 +15,7 @@ defmodule Bullet.Supervisor do
     new(Transformations.transform_player(player), world)
   end
 
-  def new(_ = %{x: x, y: y, direction: direction}, world) do
+  def new(player = %{x: x, y: y, direction: direction}, world) do
     Supervisor.start_child(__MODULE__, [
       %Bullet{
         x: x,

@@ -45,7 +45,7 @@ defimpl Move, for: Player do
   defp valid_move?(%{y: y, direction: :down}) do
     y > Constants.game_height - Constants.player_radius
   end
-  defp valid_move?(player) do
+  defp valid_move?(_) do
     true
   end
 
