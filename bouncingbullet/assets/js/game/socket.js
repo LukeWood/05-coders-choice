@@ -8,7 +8,6 @@ let socket = new Socket("/socket");
 socket.connect()
 
 function join_channel(channel_name) {
-
   let channel = socket.channel(channel_name, { logger: logger });
   channel.join();
   return channel;
