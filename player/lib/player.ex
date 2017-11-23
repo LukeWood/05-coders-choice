@@ -6,8 +6,8 @@ defmodule Player do
   defdelegate action(pid, action), to: Player.Client
 
   defstruct [
-    x:            0,
-    y:            0,
+    x:            Constants.player_radius,
+    y:            Constants.player_radius,
     direction:    :left,
     moving:       false,
     reload_time:  0,

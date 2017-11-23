@@ -2,8 +2,16 @@ defmodule PlayerTest do
   use ExUnit.Case
   import Player
 
-  def tick() do
+  defp tick() do
     Observable.emit(Clock, {:tick})
+  end
+
+  defp default_x() do
+    %Player{} |> Map.get(:x)
+  end
+
+  defp default_y() do
+    %Player{} |> Map.get(:y)
   end
 
   describe "Players can be " do
@@ -31,34 +39,36 @@ defmodule PlayerTest do
       {:ok, pid} = new()
       action(pid, :right)
       tick()
-      assert peek(pid) |> Map.get(:x) == 1
+      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
     end
 
     test "move left" do
       {:ok, pid} = new()
       action(pid, :right)
       tick()
-      assert peek(pid) |> Map.get(:x) == 1
+      tick()
+      assert peek(pid) |> Map.get(:x) == default_x() + 2*Constants.player_speed
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == 0
+      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
     end
 
     test "move down" do
       {:ok, pid} = new()
       action(pid, :down)
       tick()
-      assert peek(pid) |> Map.get(:y) == 1
+      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
     end
 
     test "move up" do
       {:ok, pid} = new()
       action(pid, :down)
       tick()
-      assert peek(pid) |> Map.get(:y) == 1
+      tick()
+      assert peek(pid) |> Map.get(:y) == default_y() + 2*Constants.player_speed
       action(pid, :up)
       tick()
-      assert peek(pid) |> Map.get(:y) == 0
+      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
     end
 
 
@@ -67,7 +77,7 @@ defmodule PlayerTest do
       {:ok, pid} = new()
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == 0
+      assert peek(pid) |> Map.get(:x) == default_x()
     end
 
   end
