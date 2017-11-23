@@ -34,16 +34,16 @@ end
 defimpl Move, for: Player do
 
   defp valid_move?(%{x: x, direction: :left}) do
-    x < Constants.player_radius
+    ! x < Constants.player_radius
   end
   defp valid_move?(%{x: x, direction: :right}) do
-    x > Constants.game_width - Constants.player_radius
+    ! x > Constants.game_width - Constants.player_radius
   end
   defp valid_move?(%{y: y, direction: :up}) do
-    y < Constants.player_radius
+    ! y < Constants.player_radius
   end
   defp valid_move?(%{y: y, direction: :down}) do
-    y > Constants.game_height - Constants.player_radius
+    ! y > Constants.game_height - Constants.player_radius
   end
   defp valid_move?(_) do
     true

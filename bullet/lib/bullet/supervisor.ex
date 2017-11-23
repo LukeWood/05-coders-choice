@@ -15,7 +15,7 @@ defmodule Bullet.Supervisor do
     new(Transformations.transform_player(player), world)
   end
 
-  def new(player = %{x: x, y: y, direction: direction}, world) do
+  def new(_ = %{x: x, y: y, direction: direction}, world) do
     Supervisor.start_child(__MODULE__, [
       %Bullet{
         x: x,
