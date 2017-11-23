@@ -14,4 +14,13 @@ defmodule Constants do
   def player_radius do
     5
   end
+
+  def game_width do
+    500
+  end
+
+  def game_height do
+    500
+  end
+  
 end

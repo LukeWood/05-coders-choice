@@ -1,7 +1,7 @@
 defmodule Bullet.Supervisor do
   use Supervisor
 
-  alias Bullet.SpawnTransformations, as: Transformations
+  alias Bullet.Transformations, as: Transformations
 
   def start(_opts, _args) do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)

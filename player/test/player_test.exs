@@ -29,9 +29,16 @@ defmodule PlayerTest do
 
     test "move" do
       {:ok, pid} = new()
+      action(pid, :right)
+      tick()
+      assert peek(pid) |> Map.get(:x) == 1
+    end
+
+    test "not move past the world's boundaries" do
+      {:ok, pid} = new()
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == -1
+      assert peek(pid) |> Map.get(:x) == 0
     end
 
   end
