@@ -27,12 +27,41 @@ defmodule PlayerTest do
       assert peek(pid) |> Map.get(:direction) == :left
     end
 
-    test "move" do
+    test "move right" do
       {:ok, pid} = new()
       action(pid, :right)
       tick()
       assert peek(pid) |> Map.get(:x) == 1
     end
+
+    test "move left" do
+      {:ok, pid} = new()
+      action(pid, :right)
+      tick()
+      assert peek(pid) |> Map.get(:x) == 1
+      action(pid, :left)
+      tick()
+      assert peek(pid) |> Map.get(:x) == 0
+    end
+
+    test "move down" do
+      {:ok, pid} = new()
+      action(pid, :down)
+      tick()
+      assert peek(pid) |> Map.get(:y) == 1
+    end
+
+    test "move up" do
+      {:ok, pid} = new()
+      action(pid, :down)
+      tick()
+      assert peek(pid) |> Map.get(:y) == 1
+      action(pid, :up)
+      tick()
+      assert peek(pid) |> Map.get(:y) == 0
+    end
+
+
 
     test "not move past the world's boundaries" do
       {:ok, pid} = new()
