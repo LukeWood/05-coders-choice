@@ -40,7 +40,8 @@ defmodule Client.Mixfile do
       {:cowboy, "~> 1.0"},
 
       #my deps
-      {:world, in_umbrella: true}
+      {:world,  in_umbrella: true},
+      {:player, in_umbrella: true}
     ]
   end
 end

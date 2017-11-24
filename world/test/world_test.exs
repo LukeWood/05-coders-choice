@@ -13,14 +13,14 @@ defmodule WorldTest do
       {:ok, world} = World.new
       {:ok, placeholder} = Agent.start_link(fn -> [] end)
       World.new_player(world, placeholder)
-      assert World.get_players(world) |> Enum.count == 1
+      assert World.players(world) |> Enum.count == 1
     end
 
     test "have bullets added" do
       {:ok, world} = World.new
       {:ok, placeholder} = Agent.start_link(fn -> [] end)
       World.new_bullet(world, placeholder)
-      assert World.get_bullets(world) |> Enum.count == 1
+      assert World.bullets(world) |> Enum.count == 1
     end
 
    end

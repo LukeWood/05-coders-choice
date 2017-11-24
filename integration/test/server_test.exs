@@ -12,7 +12,7 @@ defmodule IntegrationTest do
     :timer.sleep(100)
     action(p1, :shoot)
     :timer.sleep(100)
-    bullets = World.get_bullets(world) |> Enum.count
+    bullets = World.bullets(world) |> Enum.count
     assert bullets == 1
   end
 

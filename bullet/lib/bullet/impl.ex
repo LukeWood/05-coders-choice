@@ -6,12 +6,12 @@ defmodule Bullet.Impl do
     )
   end
 
-  defp did_collide(x1, x2, y1, y2, radius) do
+  defp did_collide?(x1, x2, y1, y2, radius) do
     distance(x1, x2, y1, y2) < radius + Constants.bullet_radius
   end
 
   defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
-    did_collide(x1, x2, y1, y2, radius)
+    did_collide?(x1, x2, y1, y2, radius)
   end
   defp find_collisions(x1, y1, pid) do
     inner_filter(x1, y1, GenServer.call(pid, {:peek}))
@@ -49,7 +49,7 @@ defmodule Bullet.Impl do
   end
 
   def tick(state = %{world: world}) do
-    calculate_collisions(state, World.get_players(world)) |>
+    calculate_collisions(state, World.players(world)) |>
     apply_collisions(world)
     update_bullet(state)
   end
