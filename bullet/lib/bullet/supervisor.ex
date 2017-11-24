@@ -1,25 +1,10 @@
 defmodule Bullet.Supervisor do
   use Supervisor
 
+  alias Bullet.Transformations, as: Transformations
+
   def start(_opts, _args) do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
-  end
-
-  def dx do
-    5 + Bullet.radius + 1
-  end
-
-  def transform_player(player = %{direction: :left}) do
-    Map.update!(player, :x, fn x -> x - dx() end)
-  end
-  def transform_player(player = %{direction: :right}) do
-    Map.update!(player, :x, fn x -> x + dx() end)
-  end
-  def transform_player(player = %{direction: :up}) do
-    Map.update!(player, :y, fn y -> y - dx() end)
-  end
-  def transform_player(player = %{direction: :down}) do
-    Map.update!(player, :y, fn y -> y + dx() end)
   end
 
   def new do
@@ -27,7 +12,7 @@ defmodule Bullet.Supervisor do
   end
 
   def new(player = %{world: world}) do
-    new(transform_player(player), world)
+    new(Transformations.transform_player(player), world)
   end
 
   def new(_ = %{x: x, y: y, direction: direction}, world) do

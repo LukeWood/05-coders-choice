@@ -1,19 +1,17 @@
 defmodule Player do
 
-  @radius 5
-
   defdelegate new,                 to: Player.Supervisor
   defdelegate new(pid),            to: Player.Supervisor
   defdelegate peek(pid),           to: Player.Client
   defdelegate action(pid, action), to: Player.Client
 
   defstruct [
-    x:            0,
-    y:            0,
+    x:            Constants.player_radius,
+    y:            Constants.player_radius,
     direction:    :left,
     moving:       false,
     reload_time:  0,
-    radius:       @radius,
+    radius:       Constants.player_radius,
     world:        nil
   ]
 
