@@ -54,7 +54,8 @@ defmodule Bullet.Impl do
     update_bullet(state)
   end
 
-  def die(_pid) do
+  def die(_state = %{world: world}) do
+    World.remove_bullet(world, self())
     nil
   end
 

@@ -19,6 +19,7 @@ defmodule Bullet.Server do
   end
 
   def handle_cast({:tick}, state = %{lifetime: 0}) do
+    state = Impl.tick(state)
     {:stop, :normal, state}
   end
 

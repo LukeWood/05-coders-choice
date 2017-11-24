@@ -2,6 +2,20 @@ defmodule IntegrationTest do
   import Player
 
   use ExUnit.Case
+
+  test "Worlds track bullets" do
+    {:ok, world} = World.new
+    {:ok, p1} = Player.new world
+
+    # PLAYER ACTIONS
+    action(p1, :right)
+    :timer.sleep(100)
+    action(p1, :shoot)
+    :timer.sleep(100)
+    bullets = World.get_bullets(world) |> Enum.count
+    assert bullets == 1
+  end
+
   test "We can't shoot ourself" do
     {:ok, world} = World.new
     {:ok, p1} = Player.new world
