@@ -1,8 +1,8 @@
 defmodule Client.UserSocket do
   use Phoenix.Socket
 
-  #channel "updates", Client.Updates
-  #channel "input",   Client.Input
+  channel "updates", Client.Updates
+  channel "input",   Client.Input
 
   transport :websocket, Phoenix.Transports.WebSocket
 

@@ -1,19 +1,22 @@
 import join_channel from './socket';
 
+const valid_key_codes = new Set(
+                        ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D']
+                        .map((x) => x.charCodeAt(0))
+);
 class Controls {
+
   constructor() {
     this.channel = join_channel("input");
     window.addEventListener("keyup", this.keyhandler.bind(this), true);
   }
   keyhandler(e) {
-    let valid = [32, 37, 38, 39, 40, 13].includes(e.keyCode);
-    if(!valid) {
+
+    let valid = valid_key_codes.has(e.keyCode);
+    if(!valid)
       return;
-    }
-    else {
-      console.log(e.key);
-      this.channel.push(e.key);
-    }
+
+    this.channel.push(e.key);
     e.preventDefault();
   }
 }
