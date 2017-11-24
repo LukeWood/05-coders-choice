@@ -11,8 +11,8 @@ defmodule Client do
 
   def state do
     pid = Agent.get(__MODULE__, fn pid -> pid end)
-    players = World.get_players(pid)
-    bullets = World.get_bullets(pid)
+    players = World.players(pid)
+    bullets = World.bullets(pid)
     %{
       bullets: bullets,
       players: players
