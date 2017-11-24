@@ -6,14 +6,12 @@ class StateHandler {
     this.bullets = [];
     this.channel = join_channel("updates")
     this.register_updates()
+    window.update = this.channel.push("update")
   }
 
   register_updates() {
-    this.channel.on("bullet", player => {
-
-    });
-    this.channel.on("player", player => {
-      console.log(msg);
+    this.channel.on("update", state => {
+      console.log(state)
     });
   }
 }

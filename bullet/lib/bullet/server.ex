@@ -15,7 +15,7 @@ defmodule Bullet.Server do
   end
 
   def handle_call({:peek}, _from, state) do
-    {:reply, state, state}
+    {:reply, Map.drop(state, [:world]), state}
   end
 
   def handle_cast({:tick}, state = %{lifetime: 0}) do

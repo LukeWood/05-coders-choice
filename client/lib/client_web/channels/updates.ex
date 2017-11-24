@@ -12,7 +12,7 @@ defmodule Client.Updates do
       bullets: Enum.map(bullets, &Bullet.peek/1),
       players: Enum.map(players, &Player.peek/1)
     }
-    {:reply, reply, socket}
+    {:reply, {:ok, reply}, socket}
   end
 
 end
