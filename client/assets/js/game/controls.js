@@ -1,9 +1,12 @@
 import join_channel from './socket';
 
 const valid_key_codes = new Set(
-                        ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D']
+                        ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']
                         .map((x) => x.charCodeAt(0))
 );
+// Enter keycode
+valid_key_codes.add(13)
+
 class Controls {
 
   constructor() {
