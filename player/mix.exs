@@ -26,7 +26,7 @@ defmodule Player.Mixfile do
       {:bullet, in_umbrella: true},
       {:world, in_umbrella: true},
       {:constants, in_umbrella: true},
-      {:move, in_umbrella: true}
+      {:move, in_umbrella: true},
       {:peek,       in_umbrella: true}
     ]
   end
