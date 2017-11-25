@@ -2,7 +2,8 @@ defmodule IntegrationTest do
   import Player
 
   use ExUnit.Case
-  test "We can't shoot ourself" do
+
+  test "Worlds track bullets" do
     {:ok, world} = World.new
     {:ok, p1} = Player.new world
 
@@ -10,9 +11,10 @@ defmodule IntegrationTest do
     action(p1, :right)
     :timer.sleep(100)
     action(p1, :shoot)
+    :timer.sleep(100)
+    bullets = World.bullets(world) |> Enum.count
+    assert bullets == 1
     :timer.sleep(1000)
-
-    assert Process.alive?(p1)
   end
 
   test "Player 1 lives, Player 2 dies" do
@@ -32,7 +34,6 @@ defmodule IntegrationTest do
     assert Process.alive?(p1)
     assert !Process.alive?(p2)
   end
-
 
   test "Dead men shoot no bullets" do
     {:ok, world} = World.new

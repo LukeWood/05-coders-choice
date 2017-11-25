@@ -16,7 +16,7 @@ defmodule Bullet.Supervisor do
   end
 
   def new(_ = %{x: x, y: y, direction: direction}, world) do
-    Supervisor.start_child(__MODULE__, [
+    {:ok, pid} = Supervisor.start_child(__MODULE__, [
       %Bullet{
         x: x,
         y: y,
@@ -24,6 +24,8 @@ defmodule Bullet.Supervisor do
         world: world
       }
     ])
+    World.new_bullet(world, pid)
+    {:ok, pid}
   end
 
   def init(:ok) do

@@ -17,7 +17,7 @@ defmodule Player.Server do
   end
 
   def handle_call({:peek}, _from, state) do
-    {:reply, state, state}
+    {:reply, Map.drop(state, [:world]), state}
   end
 
   def handle_cast({:action, action}, state) do

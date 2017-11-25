@@ -12,7 +12,8 @@ defmodule Constants do
   end
 
   def player_radius do
-    5
+    25
+
   end
 
   def game_width do
@@ -22,5 +23,9 @@ defmodule Constants do
   def game_height do
     500
   end
-  
+
+  def clock_interval do
+    50
+  end
+
 end

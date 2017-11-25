@@ -12,6 +12,7 @@ defmodule Player do
     moving:       false,
     reload_time:  0,
     radius:       Constants.player_radius,
+    color:        "#cc00ff",
     world:        nil
   ]
 
