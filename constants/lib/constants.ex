@@ -1,10 +1,10 @@
 defmodule Constants do
   def bullet_speed do
-    1
+    2
   end
 
   def bullet_radius do
-    2
+    5
   end
 
   def player_speed do
