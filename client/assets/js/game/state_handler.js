@@ -1,18 +1,24 @@
 import join_channel from './socket';
 
 class StateHandler {
-  constructor(change_handler) {
+  constructor(render_function) {
     this.players = [];
     this.bullets = [];
-    this.channel = join_channel("updates")
-    this.register_updates()
-    window.update = this.channel.push("update")
+    this.channel = join_channel("updates");
+    this.start_rendering(render_function);
   }
 
-  register_updates() {
-    this.channel.on("update", state => {
-      console.log(state)
-    });
+  start_rendering(render_function) {
+    let channel = this.channel;
+    function loop_function() {
+      channel.push("update")
+        .receive("ok", (state) => {
+          window.state = state;
+          render_function(state);
+          setTimeout(loop_function, 100);
+        });
+    }
+    loop_function();
   }
 }
 

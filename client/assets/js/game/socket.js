@@ -1,4 +1,4 @@
-import {Socket} from "phoenix"
+import { Socket } from "phoenix"
 
 function logger(kind, msg, data) {
   console.log(`Socket event: ${kind}, ${message}, ${data}`)

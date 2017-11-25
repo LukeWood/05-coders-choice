@@ -4,8 +4,8 @@ const valid_key_codes = new Set(
                         ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']
                         .map((x) => x.charCodeAt(0))
 );
-// Enter keycode
-valid_key_codes.add(13)
+const ENTER_KEY = 13;
+valid_key_codes.add(ENTER_KEY);
 
 class Controls {
 
@@ -14,7 +14,6 @@ class Controls {
     window.addEventListener("keyup", this.keyhandler.bind(this), true);
   }
   keyhandler(e) {
-
     let valid = valid_key_codes.has(e.keyCode);
     if(!valid)
       return;

@@ -11,7 +11,8 @@ defmodule Bullet do
     lifetime:   100,
     x:          0,
     y:          0,
-    direction:  :left
+    direction:  :left,
+    color: "#000000"
   ]
 
 end

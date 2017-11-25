@@ -8,6 +8,9 @@ defmodule Client.Updates do
 
   def handle_in("update", _options, socket) do
     %{bullets: bullets, players: players} = Client.state
+    bullets = Enum.filter(bullets, &Process.alive?/1)
+    players = Enum.filter(players, &Process.alive?/1)
+
     reply = %{
       bullets: Enum.map(bullets, &Bullet.peek/1),
       players: Enum.map(players, &Player.peek/1)

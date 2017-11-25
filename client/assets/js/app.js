@@ -5,4 +5,4 @@ import Controls       from './game/controls';
 import StateHandler   from './game/state_handler';
 
 new Controls()
-new StateHandler()
+new StateHandler(draw)

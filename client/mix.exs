@@ -42,7 +42,8 @@ defmodule Client.Mixfile do
       #my deps
       {:world,  in_umbrella: true},
       {:player, in_umbrella: true},
-      {:bullet, in_umbrella: true}
+      {:bullet, in_umbrella: true},
+      {:clock,  in_umbrella: true}
     ]
   end
 end
