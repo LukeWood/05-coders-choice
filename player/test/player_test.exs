@@ -32,14 +32,14 @@ defmodule PlayerTest do
     test "respond to updates" do
       {:ok, pid} = new()
       action(pid, :left)
-      assert peek(pid) |> Map.get(:direction) == :left
+      assert Peek.peek(pid) |> Map.get(:direction) == :left
     end
 
     test "move right" do
       {:ok, pid} = new()
       action(pid, :right)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
     end
 
     test "move left" do
@@ -47,17 +47,17 @@ defmodule PlayerTest do
       action(pid, :right)
       tick()
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x() + 2*Constants.player_speed
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
     end
 
     test "move down" do
       {:ok, pid} = new()
       action(pid, :down)
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
     end
 
     test "move up" do
@@ -65,10 +65,10 @@ defmodule PlayerTest do
       action(pid, :down)
       tick()
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y() + 2*Constants.player_speed
       action(pid, :up)
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
     end
 
 
@@ -77,7 +77,7 @@ defmodule PlayerTest do
       {:ok, pid} = new()
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x()
+      assert Peek.peek(pid) |> Map.get(:x) == default_x()
     end
 
   end
