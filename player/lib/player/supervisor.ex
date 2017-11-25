@@ -12,6 +12,11 @@ defmodule Player.Supervisor do
     Supervisor.start_child(__MODULE__, [world])
   end
 
+  def new_zero_state(world) do
+    Supervisor.start_child(__MODULE__, [world, false])
+  end
+
+
   def init(:ok) do
     children =[
       worker(Player.Server, [], restart: :temporary)
