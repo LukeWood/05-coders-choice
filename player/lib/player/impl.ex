@@ -1,8 +1,9 @@
 defmodule Player.Impl do
 
-  defp shoot_if_shooting(player = %{shoot: true}) do
+  defp shoot_if_shooting(player = %{shoot: true, reload_time: r}) when r <= 0 do
     Bullet.new(player)
-    Map.put(player, :shoot, false)
+    Map.put(player, :shoot, false) |>
+    Map.put(:reload_time, Constants.reload_time)
   end
 
   defp shoot_if_shooting(player) do
@@ -12,7 +13,8 @@ defmodule Player.Impl do
   def tick(player) do
     player |>
     Move.move |>
-    shoot_if_shooting
+    shoot_if_shooting |>
+    Map.update!(:reload_time, fn r -> r - 1 end)
   end
 
   def action(player, :shoot) do
