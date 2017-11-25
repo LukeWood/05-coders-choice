@@ -6,10 +6,10 @@ end
 defimpl Peek, for: Any do
 
   def peek(pid) do
-    try do
+    if Process.alive? pid do
       GenServer.call(pid, {:peek})
-    catch
-      Any -> nil
+    else
+      nil
     end
   end
 
