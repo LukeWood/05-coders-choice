@@ -5,6 +5,7 @@ dummy_canvas.width = canvas.width;
 dummy_canvas.height = canvas.height;
 const dummy_ctx = dummy_canvas.getContext("2d");
 
+// Not my code btw
 function invertColor(hexTripletColor) {
     var color = hexTripletColor;
     color = color.substring(1);           // remove #
@@ -15,6 +16,7 @@ function invertColor(hexTripletColor) {
     color = "#" + color;                  // prepend #
     return color;
 }
+// Ok the rest is my code
 
 function drawPlayer(player) {
   dummy_ctx.fillStyle = player.color;
