@@ -4,7 +4,7 @@ defmodule IntegrationTest do
   use ExUnit.Case
 
   test "Worlds track bullets" do
-    {:ok, world} = World.new_zero_state
+    {:ok, world} = World.new
     {:ok, p1} = Player.new_zero_state world
 
     # PLAYER ACTIONS
@@ -18,7 +18,7 @@ defmodule IntegrationTest do
   end
 
   test "Player 1 lives, Player 2 dies" do
-    {:ok, world} = World.new_zero_state
+    {:ok, world} = World.new
     {:ok, p1} = Player.new_zero_state world
     {:ok, p2} = Player.new_zero_state world
 
@@ -36,7 +36,7 @@ defmodule IntegrationTest do
   end
 
   test "Dead men shoot no bullets" do
-    {:ok, world} = World.new_zero_state
+    {:ok, world} = World.new
     {:ok, p1} = Player.new_zero_state world
     {:ok, p2} = Player.new_zero_state world
 
