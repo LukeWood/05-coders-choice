@@ -13,6 +13,7 @@ defmodule Constants do
 
   def player_radius do
     25
+
   end
 
   def game_width do
