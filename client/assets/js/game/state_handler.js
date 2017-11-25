@@ -13,7 +13,6 @@ class StateHandler {
     function loop_function() {
       channel.push("update")
         .receive("ok", (state) => {
-          window.state = state;
           render_function(state);
           setTimeout(loop_function, 100);
         });
