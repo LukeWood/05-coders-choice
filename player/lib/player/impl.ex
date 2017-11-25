@@ -1,5 +1,13 @@
 defmodule Player.Impl do
 
+  def start_x do
+    Constants.player_radius + :rand.uniform(Constants.game_width - 2*Constants.player_radius)
+  end
+
+  def start_y do
+    Constants.player_radius + :rand.uniform(Constants.game_height - 2*Constants.player_radius)
+  end
+
   defp shoot_if_shooting(player = %{shoot: true, reload_time: r}) when r <= 0 do
     Bullet.new(player)
     Map.put(player, :shoot, false) |>

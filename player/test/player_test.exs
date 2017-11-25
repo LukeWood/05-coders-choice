@@ -6,12 +6,10 @@ defmodule PlayerTest do
     Observable.emit(Clock, {:tick})
   end
 
-  defp default_x() do
-    %Player{} |> Map.get(:x)
-  end
-
-  defp default_y() do
-    %Player{} |> Map.get(:y)
+  defp defaults pid do
+    default_x = Peek.peek(pid) |> Map.get(:x)
+    default_y = Peek.peek(pid) |> Map.get(:y)
+    {default_x, default_y}
   end
 
   describe "Players can be " do
@@ -31,53 +29,64 @@ defmodule PlayerTest do
 
     test "respond to updates" do
       {:ok, pid} = new()
+
       action(pid, :left)
-      assert peek(pid) |> Map.get(:direction) == :left
+      assert Peek.peek(pid) |> Map.get(:direction) == :left
     end
 
     test "move right" do
       {:ok, pid} = new()
+      {default_x, _} = defaults(pid)
+
       action(pid, :right)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + Constants.player_speed
     end
 
     test "move left" do
       {:ok, pid} = new()
+      {default_x, _} = defaults(pid)
+
       action(pid, :right)
       tick()
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + 2*Constants.player_speed
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + Constants.player_speed
     end
 
     test "move down" do
       {:ok, pid} = new()
+      {_, default_y} = defaults(pid)
+
       action(pid, :down)
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + Constants.player_speed
     end
 
     test "move up" do
       {:ok, pid} = new()
+      {_, default_y} = defaults(pid)
+
       action(pid, :down)
       tick()
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + 2*Constants.player_speed
       action(pid, :up)
       tick()
-      assert peek(pid) |> Map.get(:y) == default_y() + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + Constants.player_speed
     end
 
 
 
     test "not move past the world's boundaries" do
-      {:ok, pid} = new()
+      {:ok, pid} = new_zero_state(nil)
+      {default_x, _} = defaults(pid)
+
       action(pid, :left)
       tick()
-      assert peek(pid) |> Map.get(:x) == default_x()
+      assert Peek.peek(pid) |> Map.get(:x) == default_x
     end
 
   end

@@ -2,7 +2,7 @@ defmodule Player do
 
   defdelegate new,                 to: Player.Supervisor
   defdelegate new(pid),            to: Player.Supervisor
-  defdelegate peek(pid),           to: Player.Client
+  defdelegate new_zero_state(pid), to: Player.Supervisor
   defdelegate action(pid, action), to: Player.Client
 
   defstruct [

@@ -11,7 +11,7 @@ defmodule BulletTest do
         # nil world pid
         {:ok, pid} = Bullet.new(%{x: 100, y: 100, direction: :right}, nil)
         Observable.emit(Clock, {:tick})
-        assert Bullet.peek(pid) |> Map.get(:x) == 100 + Constants.bullet_speed
+        assert Peek.peek(pid) |> Map.get(:x) == 100 + Constants.bullet_speed
       end
   end
 
@@ -19,7 +19,7 @@ defmodule BulletTest do
     test "move when tick is called" do
       {:ok, pid} = Bullet.new
       Observable.emit(Clock, {:tick})
-      assert Bullet.peek(pid) |> Map.get(:x) == - Constants.bullet_speed
+      assert Peek.peek(pid) |> Map.get(:x) == - Constants.bullet_speed
     end
   end
 

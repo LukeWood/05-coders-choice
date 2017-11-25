@@ -43,7 +43,8 @@ defmodule Client.Mixfile do
       {:world,  in_umbrella: true},
       {:player, in_umbrella: true},
       {:bullet, in_umbrella: true},
-      {:clock,  in_umbrella: true}
+      {:clock,  in_umbrella: true},
+      {:peek,   in_umbrella: true}
     ]
   end
 end
