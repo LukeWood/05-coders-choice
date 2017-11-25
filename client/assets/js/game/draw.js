@@ -1,6 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const dummy_canvas = document.createElement("canvas");
+dummy_canvas.width = canvas.width;
+dummy_canvas.height = canvas.height;
 const dummy_ctx = dummy_canvas.getContext("2d");
 
 function invertColor(hexTripletColor) {

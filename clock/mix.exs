@@ -22,7 +22,8 @@ defmodule Clock.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:observable, in_umbrella: true}
+      {:observable, in_umbrella: true},
+      {:constants,  in_umbrella: true}
     ]
   end
 end

@@ -1,10 +1,8 @@
 defmodule Clock do
   use Observable
 
-  @clock_speed 50
-
   def recursive_clock() do
-    :timer.sleep(@clock_speed)
+    :timer.sleep(Constants.clock_interval)
     emit({:tick})
     Clock.recursive_clock()
   end

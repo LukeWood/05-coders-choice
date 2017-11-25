@@ -23,4 +23,8 @@ defmodule Constants do
     500
   end
 
+  def clock_interval do
+    50
+  end
+
 end

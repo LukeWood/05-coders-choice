@@ -8,11 +8,11 @@ const ENTER_KEY = 13;
 valid_key_codes.add(ENTER_KEY);
 
 class Controls {
-
   constructor() {
     this.channel = join_channel("input");
     window.addEventListener("keyup", this.keyhandler.bind(this), true);
   }
+  
   keyhandler(e) {
     let valid = valid_key_codes.has(e.keyCode);
     if(!valid)
