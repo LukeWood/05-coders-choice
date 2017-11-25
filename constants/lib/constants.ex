@@ -1,6 +1,6 @@
 defmodule Constants do
   def bullet_speed do
-    2
+    3
   end
 
   def bullet_radius do
@@ -8,12 +8,11 @@ defmodule Constants do
   end
 
   def player_speed do
-    1
+    2
   end
 
   def player_radius do
     25
-
   end
 
   def game_width do
@@ -25,7 +24,7 @@ defmodule Constants do
   end
 
   def clock_interval do
-    35
+    10
   end
 
   def reload_time do

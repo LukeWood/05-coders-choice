@@ -7,7 +7,9 @@ use Mix.Config
 
 # Configures the endpoint
 config :client, ClientWeb.Endpoint,
+  server: true,
   url: [host: "localhost"],
+  port: System.get_env("PORT"),
   secret_key_base: "fjGXXY2usmVRV9iIvVbXHISD0b4ZHaAK3pZ96LrBStNyS933ghZfRDRMvFSGVjLv",
   render_errors: [view: ClientWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Client.PubSub,
