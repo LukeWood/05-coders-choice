@@ -25,7 +25,7 @@ defmodule Constants do
   end
 
   def clock_interval do
-    40
+    35
   end
 
   def reload_time do

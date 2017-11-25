@@ -10,7 +10,11 @@ defmodule Player.Server do
   end
 
   def start_link(world) do
-    {:ok, pid} = GenServer.start_link(__MODULE__, %Player{world: world})
+    state =  %Player{world: world} |>
+    Map.put(:x, Impl.start_x) |>
+    Map.put(:y, Impl.start_y)
+
+    {:ok, pid} = GenServer.start_link(__MODULE__, state)
     World.new_player(world, pid)
     Observable.observe(Clock, pid)
     {:ok, pid}
