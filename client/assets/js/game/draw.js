@@ -63,10 +63,10 @@ function drawPlayer({
   dummy_ctx.fillStyle = invertColor(color)
   switch(direction) {
     case "left":
-      dummy_ctx.fillRect(x, y, -radius, 1)
+      dummy_ctx.fillRect(x, y, -radius,  1)
       break;
     case "right":
-      dummy_ctx.fillRect(x, y,  radius, 1)
+      dummy_ctx.fillRect(x, y,  radius,  1)
       break;
     case "up":
       dummy_ctx.fillRect(x, y,  1, -radius)
@@ -92,9 +92,9 @@ function draw(players, bullets) {
   dummy_ctx.fillRect(0, 0, 500, 500);
 
   const server_time = game_time();
-
   players.forEach((player) => drawPlayer(player, server_time));
   bullets.forEach((bullet) => drawBullet(bullet, server_time));
+  
   ctx.drawImage(dummy_canvas, 0, 0);
 }
 
