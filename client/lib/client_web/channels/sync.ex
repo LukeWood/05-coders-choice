@@ -6,7 +6,7 @@ defmodule Client.Sync do
   end
 
   def handle_in("time", _options, socket) do
-    {:reply, {:ok, %{time: :erlang.system_time(:millisecond)}}, socket}
+    {:reply, {:ok, %{time: :erlang.system_time(:milli_seconds)}}, socket}
   end
 
 end

@@ -7,7 +7,7 @@ defmodule Bullet.Server do
   end
 
   def start_link(state) do
-    {_, _, millis} = :os.timestamp()
+    millis = :erlang.system_time(:milli_seconds)
     state = Map.put(state, :timestamp, millis)
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
     Observable.observe(Clock, pid)
