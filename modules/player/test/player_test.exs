@@ -3,7 +3,7 @@ defmodule PlayerTest do
   import Player
 
   defp tick() do
-    :timer.sleep(Constants.clock_interval + 1)
+    :timer.sleep(Constants.clock_interval + 2)
   end
 
   defp defaults pid do
