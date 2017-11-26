@@ -1,6 +1,6 @@
 FROM elixir:alpine
-ARG APP_NAME=client
-ARG PHOENIX_SUBDIR=./client/
+ARG APP_NAME=wood
+ARG PHOENIX_SUBDIR=./modules/client/
 ENV MIX_ENV=prod REPLACE_OS_VARS=true TERM=xterm
 WORKDIR /opt/app
 RUN apk update \

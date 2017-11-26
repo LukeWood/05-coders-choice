@@ -10,7 +10,8 @@ defmodule Player.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      start_permanent: Mix.env == :prod
+      start_permanent: Mix.env == :prod,
+      deps: deps()
     ]
   end
 
@@ -19,6 +20,12 @@ defmodule Player.Mixfile do
     [
       extra_applications: [:logger],
       mod: {Player.Supervisor, []}
+    ]
+  end
+
+  defp deps do
+    [
+      {:move, in_umbrella: true}
     ]
   end
 
