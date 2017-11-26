@@ -1,4 +1,4 @@
-defmodule Umbrella.Mixfile do
+defmodule WoodBullet.Mixfile do
   use Mix.Project
 
   def project do
