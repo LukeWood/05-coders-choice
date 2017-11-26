@@ -1,3 +1,5 @@
+import { game_time } from './time_sync';
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const dummy_canvas = document.createElement("canvas");
@@ -62,10 +64,11 @@ function drawBullet(bullet) {
 function draw({players: players, bullets: bullets}) {
   dummy_ctx.fillStyle = "#000000";
   dummy_ctx.fillRect(0, 0, 500, 500);
-  const timestamp = new Date().getTime();
-  console.log(timestamp)
-  players.forEach((player) => drawPlayer(player, timestamp));
-  bullets.forEach((bullet) => drawBullet(bullet, timestamp));
+
+  const server_time = game_time();
+
+  players.forEach((player) => drawPlayer(player, server_time));
+  bullets.forEach((bullet) => drawBullet(bullet, server_time));
   ctx.drawImage(dummy_canvas, 0, 0);
 }
 

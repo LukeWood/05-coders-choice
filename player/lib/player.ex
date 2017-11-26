@@ -13,7 +13,8 @@ defmodule Player do
     reload_time:  0,
     radius:       Constants.player_radius,
     color:        "#cc00ff",
-    world:        nil
+    world:        nil,
+    timestamp:    0
   ]
 
 end
