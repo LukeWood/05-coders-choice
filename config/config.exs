@@ -5,7 +5,7 @@ config :bullet,
   radius: 2
 
 config :player,
-  speed: 3,
+  speed: 2,
   radius: 25,
   reload: 10
 

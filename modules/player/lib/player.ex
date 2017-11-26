@@ -16,7 +16,7 @@ defmodule Player do
     world:          nil,
     timestamp:      0,
     speed:          Application.get_env(:player, :speed),
-    clock_interval: Application.get_env(:clock, :interval)
+    clock_interval: Application.get_env(:world, :interval)
   ]
 
 end

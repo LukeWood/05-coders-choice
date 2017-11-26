@@ -18,8 +18,10 @@ defmodule Player.Server do
     Map.put(:color, Player.ColorGen.color())
 
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
+
     World.new_player(world, pid)
     :timer.apply_interval(Application.get_env(:world, :interval), GenServer, :cast, [pid, {:tick}])
+
     {:ok, pid}
   end
 

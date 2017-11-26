@@ -25,7 +25,11 @@ defmodule Player.Mixfile do
 
   defp deps do
     [
-      {:move, in_umbrella: true}
+      {:move, in_umbrella: true},
+      {:peek, in_umbrella: true},
+      {:bullet, in_umbrella: true},
+      {:world, in_umbrella: true},
+      {:uuid,       "~> 1.1" }
     ]
   end
 

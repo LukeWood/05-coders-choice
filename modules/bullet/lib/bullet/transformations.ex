@@ -1,7 +1,7 @@
 defmodule Bullet.Transformations do
 
   def dx do
-    Application.get_env(:bullet, :radius) + Application.get_env(:player, :radius) + Application.get_env(:bullet, :speed) + 1
+    Application.get_env(:bullet, :radius) + Application.get_env(:player, :radius) + 2*Application.get_env(:bullet, :speed)
   end
 
   def transform_player(player = %{direction: :left}) do
