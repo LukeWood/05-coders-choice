@@ -10,7 +10,7 @@ defmodule Bullet.Server do
     millis = :erlang.system_time(:milli_seconds)
     state = Map.put(state, :timestamp, millis)
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
-    Observable.observe(Clock, pid)
+    :timer.apply_interval(Constants.clock_interval, GenServer, :cast, [pid, {:tick}])
     {:ok, pid}
   end
 

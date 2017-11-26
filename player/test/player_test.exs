@@ -3,7 +3,7 @@ defmodule PlayerTest do
   import Player
 
   defp tick() do
-    Observable.emit(Clock, {:tick})
+    :timer.sleep(Constants.clock_interval + 1)
   end
 
   defp defaults pid do
