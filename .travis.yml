@@ -4,16 +4,8 @@ elixir:
   - '1.5.2'
 otp_release: '17.4'
 
-env:
-  - TEST_DIR=bullet
-  - TEST_DIR=clock
-  - TEST_DIR=observable
-  - TEST_DIR=player
-  - TEST_DIR=world
-  - TEST_DIR=integration
-install: 
-  - cd $TEST_DIR 
+install:
   - mix local.rebar --force
-  - mix local.hex --force 
+  - mix local.hex --force
   - mix deps.get
 script: mix test
