@@ -18,7 +18,7 @@ config :client, ClientWeb.Endpoint,
   code_reloader: false,
   url: [host: "127.0.0.1", port: System.get_env("PORT")],
   cache_static_manifest: "priv/static/cache_manifest.json"
-
+  
 # Do not print debug messages in production
 config :logger, level: :info
 

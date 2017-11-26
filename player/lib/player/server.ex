@@ -14,7 +14,8 @@ defmodule Player.Server do
     Map.put(:x, Impl.start_x) |>
     Map.put(:y, Impl.start_y) |>
     Map.put(:timestamp, :erlang.system_time(:millisecond)) |>
-    Map.put(:id, UUID.uuid1())
+    Map.put(:id, UUID.uuid1()) |>
+    Map.put(:color, Player.ColorGen.color())
 
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
     World.new_player(world, pid)
