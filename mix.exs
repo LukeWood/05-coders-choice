@@ -1,4 +1,4 @@
-defmodule Bullet.Mixfile do
+defmodule Umbrella.Mixfile do
   use Mix.Project
 
   def project do
