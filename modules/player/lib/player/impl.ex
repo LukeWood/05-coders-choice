@@ -1,17 +1,17 @@
 defmodule Player.Impl do
 
   def start_x do
-    Constants.player_radius + :rand.uniform(Constants.game_width - 2*Constants.player_radius)
+    Application.get_env(:player, :radius) + :rand.uniform(Application.get_env(:world, :width) - 2*Application.get_env(:player, :radius))
   end
 
   def start_y do
-    Constants.player_radius + :rand.uniform(Constants.game_height - 2*Constants.player_radius)
+    Application.get_env(:player, :radius) + :rand.uniform(Application.get_env(:world, :height) - 2*Application.get_env(:player, :radius))
   end
 
   defp shoot_if_shooting(player = %{shoot: true, reload_time: r}) when r <= 0 do
     Bullet.new(player)
     Map.put(player, :shoot, false) |>
-    Map.put(:reload_time, Constants.reload_time)
+    Map.put(:reload_time, Application.get_env(:player, :reload))
   end
 
   defp shoot_if_shooting(player) do
@@ -49,16 +49,16 @@ end
 defimpl Move, for: Player do
 
   defp valid_move?(%{x: x, direction: :left}) do
-    !(x <= Constants.player_radius)
+    !(x <= Application.get_env(:player, :radius))
   end
   defp valid_move?(%{x: x, direction: :right}) do
-    !(x >= Constants.game_width - Constants.player_radius)
+    !(x >= Application.get_env(:world, :width) - Application.get_env(:player, :radius))
   end
   defp valid_move?(%{y: y, direction: :up}) do
-    !(y <= Constants.player_radius)
+    !(y <= Application.get_env(:player, :radius))
   end
   defp valid_move?(%{y: y, direction: :down}) do
-    !(y >= Constants.game_height - Constants.player_radius)
+    !(y >= Application.get_env(:world, :height) - Application.get_env(:player, :radius))
   end
   defp valid_move?(_) do
     true
@@ -68,16 +68,16 @@ defimpl Move, for: Player do
     player
   end
   defp apply_move(player = %{x: x, direction: :left}) do
-    Map.put(player, :x, x - Constants.player_speed)
+    Map.put(player, :x, x - Application.get_env(:player, :speed))
   end
   defp apply_move(player = %{x: x, direction: :right}) do
-    Map.put(player, :x, x + Constants.player_speed)
+    Map.put(player, :x, x + Application.get_env(:player, :speed))
   end
   defp apply_move(player = %{y: y, direction: :up}) do
-    Map.put(player, :y, y - Constants.player_speed)
+    Map.put(player, :y, y - Application.get_env(:player, :speed))
   end
   defp apply_move(player = %{y: y, direction: :down}) do
-    Map.put(player, :y, y + Constants.player_speed)
+    Map.put(player, :y, y + Application.get_env(:player, :speed))
   end
   defp apply_move(player) do
     player

@@ -6,6 +6,10 @@ defmodule Player.Mixfile do
       app: :player,
       version: "0.1.0",
       elixir: "~> 1.5",
+      build_path: "../../_build",
+      config_path: "../../config/config.exs",
+      deps_path: "../../deps",
+      lockfile: "../../mix.lock",
       start_permanent: Mix.env == :prod,
       deps: deps()
     ]
@@ -19,15 +23,14 @@ defmodule Player.Mixfile do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:bullet,     in_umbrella: true},
-      {:world,      in_umbrella: true},
-      {:constants,  in_umbrella: true},
-      {:move,       in_umbrella: true},
-      {:peek,       in_umbrella: true},
+      {:move, in_umbrella: true},
+      {:peek, in_umbrella: true},
+      {:bullet, in_umbrella: true},
+      {:world, in_umbrella: true},
       {:uuid,       "~> 1.1" }
     ]
   end
+
 end

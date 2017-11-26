@@ -3,7 +3,7 @@ defmodule PlayerTest do
   import Player
 
   defp tick() do
-    :timer.sleep(Constants.clock_interval + 2)
+    :timer.sleep(Application.get_env(:world, :interval) + 2)
   end
 
   defp defaults pid do
@@ -40,7 +40,7 @@ defmodule PlayerTest do
 
       action(pid, :right)
       tick()
-      assert Peek.peek(pid) |> Map.get(:x) == default_x + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + Application.get_env(:player, :speed)
     end
 
     test "move left" do
@@ -50,10 +50,10 @@ defmodule PlayerTest do
       action(pid, :right)
       tick()
       tick()
-      assert Peek.peek(pid) |> Map.get(:x) == default_x + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + 2*Application.get_env(:player, :speed)
       action(pid, :left)
       tick()
-      assert Peek.peek(pid) |> Map.get(:x) == default_x + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:x) == default_x + Application.get_env(:player, :speed)
     end
 
     test "move down" do
@@ -62,7 +62,7 @@ defmodule PlayerTest do
 
       action(pid, :down)
       tick()
-      assert Peek.peek(pid) |> Map.get(:y) == default_y + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + Application.get_env(:player, :speed)
     end
 
     test "move up" do
@@ -72,10 +72,10 @@ defmodule PlayerTest do
       action(pid, :down)
       tick()
       tick()
-      assert Peek.peek(pid) |> Map.get(:y) == default_y + 2*Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + 2*Application.get_env(:player, :speed)
       action(pid, :up)
       tick()
-      assert Peek.peek(pid) |> Map.get(:y) == default_y + Constants.player_speed
+      assert Peek.peek(pid) |> Map.get(:y) == default_y + Application.get_env(:player, :speed)
     end
 
 
