@@ -1,12 +1,12 @@
 import join_channel from './socket';
 
 const valid_key_codes = new Set(
-                        ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']
-                        .map((x) => x.charCodeAt(0))
+  ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']
+  .map((x) => x.charCodeAt(0))
 );
 const movement_keys = new Set(
-                        ['w', 'a', 's', 'd']
-                        .map((x) => x.charCodeAt(0))
+  ['w', 'a', 's', 'd']
+  .map((x) => x.charCodeAt(0))
 );
 
 let last_pressed = null;

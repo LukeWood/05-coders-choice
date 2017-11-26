@@ -12,7 +12,9 @@ defmodule Player.Server do
   def start_link(world) do
     state =  %Player{world: world} |>
     Map.put(:x, Impl.start_x) |>
-    Map.put(:y, Impl.start_y)
+    Map.put(:y, Impl.start_y) |>
+    Map.put(:timestamp, :erlang.system_time(:millisecond)) |>
+    Map.put(:id, UUID.uuid1())
 
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
     World.new_player(world, pid)
@@ -27,12 +29,13 @@ defmodule Player.Server do
     {:ok, pid}
   end
 
-
   def handle_call({:peek}, _from, state) do
     {:reply, Map.drop(state, [:world]), state}
   end
 
   def handle_cast({:action, action}, state) do
+    state = Impl.action(state, action) |>
+            Impl.update_timestamp
     {:noreply, Impl.action(state, action)}
   end
 

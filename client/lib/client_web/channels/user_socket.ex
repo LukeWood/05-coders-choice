@@ -3,7 +3,8 @@ defmodule Client.UserSocket do
 
   channel "updates", Client.Updates
   channel "input",   Client.Input
-
+  channel "sync",    Client.Sync
+  
   transport :websocket, Phoenix.Transports.WebSocket
 
   def connect(_params, socket) do
