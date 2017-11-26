@@ -15,8 +15,9 @@ const ENTER_KEY = 13;
 valid_key_codes.add(ENTER_KEY);
 
 class Controls {
-  constructor() {
+  constructor(state_handler) {
     this.channel = join_channel("input");
+    this.state_handler = state_handler;
     window.addEventListener("keydown", this.keyHandler.bind(this), true);
     window.addEventListener("keyup", this.keyUpHandler.bind(this), true);
   }
@@ -28,7 +29,7 @@ class Controls {
     if(movement_keys.has(e.keyCode)) {
       last_pressed = e.key;
     }
-    this.channel.push(e.key);
+    this.trigger_send(e.key)
     e.preventDefault();
   }
 
@@ -41,6 +42,11 @@ class Controls {
       last_pressed = null;
     }
     e.preventDefault();
+  }
+
+  trigger_send(key) {
+    this.channel.push(key);
+    this.state_handler.handle_action(key);
   }
 }
 

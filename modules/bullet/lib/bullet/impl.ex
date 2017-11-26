@@ -1,17 +1,18 @@
 defmodule Bullet.Impl do
 
-  def distance(x1, x2, y1, y2) do
-    :math.sqrt(
-      :erlang.abs((x1-x2)*(x1-x2) - (y1-y2)*(y1-y2))
-    )
+  defp distance(x1, x2, y1, y2) do
+    dx = x1-x2
+    dy = y1-y2
+    (dx*dx) + (dy*dy)
   end
 
-  defp did_collide?(x1, x2, y1, y2, radius) do
-    distance(x1, x2, y1, y2) < radius + Application.get_env(:bullet, :radius)
+  defp did_collide?(x1, x2, y1, y2) do
+    rad = Application.get_env(:player, :radius) + Application.get_env(:bullet, :radius)
+    distance(x1, x2, y1, y2) < rad*rad
   end
 
-  defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
-    did_collide?(x1, x2, y1, y2, radius)
+  defp inner_filter(x1, y1, %{x: x2, y: y2}) do
+    did_collide?(x1, x2, y1, y2)
   end
   defp find_collisions(x1, y1, pid) do
     inner_filter(x1, y1, GenServer.call(pid, {:peek}))

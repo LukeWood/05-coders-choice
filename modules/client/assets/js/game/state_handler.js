@@ -32,8 +32,13 @@ class StateHandler {
     setInterval(update_players, 100);
     setInterval(update_bullets, 50);
   }
+
   start_drawing(render_function) {
     setInterval(() => render_function(this.players, this.bullets), 30);
+  }
+
+  handle_action() {
+
   }
 }
 

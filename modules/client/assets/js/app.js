@@ -1,8 +1,8 @@
 import "phoenix_html"
 
 import draw           from './game/draw';
-import Controls       from './game/controls';
 import StateHandler   from './game/state_handler';
+import Controls       from './game/controls';
 
-new Controls()
-new StateHandler(draw)
+let state_handler = new StateHandler(draw)
+new Controls(state_handler);
