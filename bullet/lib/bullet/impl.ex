@@ -2,7 +2,7 @@ defmodule Bullet.Impl do
 
   def distance(x1, x2, y1, y2) do
     :math.sqrt(
-      :erlang.abs(:math.pow(x1-x2, 2) - :math.pow(y1-y2, 2))
+      :erlang.abs((x1-x2)*(x1-x2) - (y1-y2)*(y1-y2))
     )
   end
 
