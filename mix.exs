@@ -20,10 +20,6 @@ defmodule Umbrella.Mixfile do
 
   defp deps do
     [
-      {:world,      in_umbrella: true},
-      {:constants,  in_umbrella: true},
-      {:move,       in_umbrella: true},
-      {:peek,       in_umbrella: true}
     ]
   end
 end

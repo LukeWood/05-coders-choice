@@ -2,7 +2,7 @@ defmodule BulletTest do
   use ExUnit.Case
 
   def tick do
-    :timer.sleep(Constants.clock_interval + 1)
+    :timer.sleep(Constants.clock_interval + 2)
   end
 
   describe "bullets can be" do
