@@ -1,7 +1,7 @@
 FROM elixir:alpine
-ARG APP_NAME=wood
+ARG APP_NAME=wood_bullet
 ARG PHOENIX_SUBDIR=./modules/client/
-ENV MIX_ENV=prod REPLACE_OS_VARS=true TERM=xterm
+ENV MIX_ENV=prod REPLACE_OS_VARS=true TERM=xterm PORT=8000
 WORKDIR /opt/app
 RUN apk update \
     && apk --no-cache --update add nodejs nodejs-npm \
@@ -16,7 +16,6 @@ RUN cd ${PHOENIX_SUBDIR}/assets \
     && ./node_modules/brunch/bin/brunch build -p \
     && cd .. \
     && mix phx.digest
-RUN pwd
 RUN mix release --env=prod --verbose \
     && mv _build/prod/rel/${APP_NAME} /opt/release \
     && mv /opt/release/bin/${APP_NAME} /opt/release/bin/start_server
