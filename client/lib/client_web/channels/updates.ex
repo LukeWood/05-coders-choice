@@ -11,13 +11,11 @@ defmodule Client.Updates do
   end
 
   def handle_in("update", _options, socket) do
-    %{bullets: bullets, players: players} = Client.state
+    %{bullets: bullets, players: _players} = Client.state
     bullets = Enum.map(bullets, &Peek.peek/1) |> Enum.filter(&not_nil/1)
-    players = Enum.map(players, &Peek.peek/1) |> Enum.filter(&not_nil/1)
 
     reply = %{
       bullets: bullets,
-      players: players
     }
     {:reply, {:ok, reply}, socket}
   end

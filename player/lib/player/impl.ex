@@ -25,6 +25,10 @@ defmodule Player.Impl do
     Map.update!(:reload_time, fn r -> r - 1 end)
   end
 
+  def update_timestamp(player) do
+    Map.put(player, :timestamp, :erlang.system_time(:millisecond))
+  end
+
   def action(player, :shoot) do
     Map.put(player, :shoot, true)
   end

@@ -2,22 +2,29 @@ import join_channel from './socket';
 
 class StateHandler {
   constructor(render_function) {
-    this.players = [];
+    this.players = {};
+
     this.bullets = [];
+
     this.channel = join_channel("updates");
-    this.start_rendering(render_function);
+
+    this.listen();
+    this.start_drawing(render_function);
   }
 
-  start_rendering(render_function) {
-    let channel = this.channel;
-    function loop_function() {
-      channel.push("update")
-        .receive("ok", (state) => {
-          render_function(state);
-          setTimeout(loop_function, 100);
-        });
+  listen() {
+    this.channel.on("player", (player) => this.players[player.id] = player);
+
+    let update_bullets = () => {
+      this.channel.push("update")
+        .receive("ok", ({bullets: bullets}) => {
+          this.bullets = bullets;
+      })
     }
-    loop_function();
+    setInterval(update_bullets, 50);
+  }
+  start_drawing(render_function) {
+    setInterval(() => render_function(this.players, this.bullets), 30);
   }
 }
 

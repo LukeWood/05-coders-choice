@@ -1,4 +1,4 @@
-import { game_time } from './time_sync';
+import game_time from './time_sync';
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -24,14 +24,27 @@ function drawPlayer({
     x: x,
     y: y,
     radius: radius,
-    timestamp: t,
+    timestamp: timestamp,
     color: color,
     direction: direction,
-    speed: speed
+    speed: speed,
+    clock_interval: clock_interval
   }, current_time) {
-
-  const dx = speed;
-  const dy = 0;
+  const dx = speed * (current_time - timestamp) / clock_interval;
+  switch(direction) {
+    case "up":
+      y-=dx
+      break;
+    case "down":
+      y+=dx;
+      break;
+    case "left":
+      x-=dx;
+      break;
+    case "right":
+      x+=dx;
+      break;
+  }
   dummy_ctx.fillStyle = color;
   dummy_ctx.beginPath();
   dummy_ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -61,7 +74,10 @@ function drawBullet(bullet) {
     dummy_ctx.fill();
 }
 
-function draw({players: players, bullets: bullets}) {
+function draw(players, bullets) {
+
+  players = Object.keys(players).map((uuid) => players[uuid]);
+
   dummy_ctx.fillStyle = "#000000";
   dummy_ctx.fillRect(0, 0, 500, 500);
 

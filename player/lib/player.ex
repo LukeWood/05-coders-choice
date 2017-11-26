@@ -6,15 +6,17 @@ defmodule Player do
   defdelegate action(pid, action), to: Player.Client
 
   defstruct [
-    x:            Constants.player_radius,
-    y:            Constants.player_radius,
-    direction:    :left,
-    moving:       false,
-    reload_time:  0,
-    radius:       Constants.player_radius,
-    color:        "#cc00ff",
-    world:        nil,
-    timestamp:    0
+    x:              Constants.player_radius,
+    y:              Constants.player_radius,
+    direction:      :left,
+    moving:         false,
+    reload_time:    0,
+    radius:         Constants.player_radius,
+    color:          "#cc00ff",
+    world:          nil,
+    timestamp:      0,
+    speed:          Constants.player_speed,
+    clock_interval: Constants.clock_interval
   ]
 
 end
