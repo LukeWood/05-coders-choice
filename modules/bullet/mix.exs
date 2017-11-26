@@ -5,9 +5,12 @@ defmodule Bullet.Mixfile do
     [
       app: :bullet,
       version: "0.1.0",
+      build_path: "../../_build",
+      config_path: "../../config/config.exs",
+      deps_path: "../../deps",
+      lockfile: "../../mix.lock",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
-      deps: deps()
+      start_permanent: Mix.env == :prod
     ]
   end
 
@@ -15,15 +18,6 @@ defmodule Bullet.Mixfile do
     [
       extra_applications: [:logger],
       mod: {Bullet.Supervisor, []}
-    ]
-  end
-
-  defp deps do
-    [
-      {:world,      in_umbrella: true},
-      {:constants,  in_umbrella: true},
-      {:move,       in_umbrella: true},
-      {:peek,       in_umbrella: true}
     ]
   end
 end

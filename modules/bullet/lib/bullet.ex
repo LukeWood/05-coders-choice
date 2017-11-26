@@ -8,7 +8,7 @@ defmodule Bullet do
   defstruct [
     world: nil,
     lifetime:   100,
-    radius:     Constants.bullet_radius,
+    radius:     Application.get_env(:bullet, :radius),
     x:          0,
     y:          0,
     direction:  :left,

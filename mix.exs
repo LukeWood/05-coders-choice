@@ -20,6 +20,7 @@ defmodule Umbrella.Mixfile do
 
   defp deps do
     [
+      {:uuid,       "~> 1.1" }
     ]
   end
 end
