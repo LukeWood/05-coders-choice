@@ -23,6 +23,11 @@ release :client do
   set version: current_version(:client)
   set applications: [
     :runtime_tools,
-    :mix
+    :mix,
+    :player,
+    :bullet,
+    :world,
+    :clock,
+    :peek
   ]
 end
