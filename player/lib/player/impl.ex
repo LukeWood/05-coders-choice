@@ -22,7 +22,8 @@ defmodule Player.Impl do
     player |>
     Move.move |>
     shoot_if_shooting |>
-    Map.update!(:reload_time, fn r -> r - 1 end)
+    Map.update!(:reload_time, fn r -> r - 1 end) |>
+    update_timestamp
   end
 
   def update_timestamp(player) do

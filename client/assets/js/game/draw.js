@@ -20,31 +20,41 @@ function invertColor(hexTripletColor) {
 }
 // Ok the rest is my code
 
+function validate_value(x, radius) {
+  return Math.min(500 - radius, Math.max(x, radius))
+}
+
 function drawPlayer({
-    x: x,
-    y: y,
-    radius: radius,
-    timestamp: timestamp,
-    color: color,
-    direction: direction,
-    speed: speed,
-    clock_interval: clock_interval
+    "x": x,
+    "y": y,
+    "radius": radius,
+    "timestamp": timestamp,
+    "color": color,
+    "direction": direction,
+    "speed": speed,
+    "clock_interval": clock_interval,
+    "moving": moving
   }, current_time) {
   const dx = speed * (current_time - timestamp) / clock_interval;
-  switch(direction) {
-    case "up":
-      y-=dx
-      break;
-    case "down":
-      y+=dx;
-      break;
-    case "left":
-      x-=dx;
-      break;
-    case "right":
-      x+=dx;
-      break;
+  if(moving) {
+    switch(direction) {
+      case "up":
+        y-=dx
+        break;
+      case "down":
+        y+=dx;
+        break;
+      case "left":
+        x-=dx;
+        break;
+      case "right":
+        x+=dx;
+        break;
+    }
   }
+  x = validate_value(x, radius);
+  y = validate_value(y, radius);
+
   dummy_ctx.fillStyle = color;
   dummy_ctx.beginPath();
   dummy_ctx.arc(x, y, radius, 0, 2 * Math.PI);
