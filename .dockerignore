@@ -1,0 +1,5 @@
+client/_build
+client/deps
+client/test
+client/assets/node_modules
+*/test
