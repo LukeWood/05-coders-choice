@@ -16,7 +16,6 @@ defmodule Client.Mixfile do
 
   # Configuration for the OTP application.
   #
-  # Type `mix help compile.app` for more information.
   def application do
     [
       mod: {Client.Application, []},
@@ -44,7 +43,6 @@ defmodule Client.Mixfile do
       {:world,  in_umbrella: true},
       {:player, in_umbrella: true},
       {:bullet, in_umbrella: true},
-      {:clock,  in_umbrella: true},
       {:peek,   in_umbrella: true}
     ]
   end

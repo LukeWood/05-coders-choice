@@ -4,7 +4,7 @@ defmodule Player.Server do
 
   def start_link() do
     {:ok, pid} = GenServer.start_link(__MODULE__, %Player{})
-    Observable.observe(Clock, pid)
+    :timer.apply_interval(Constants.clock_interval, GenServer, :cast, [pid, {:tick}])
     Process.flag(:trap_exit, true)
     {:ok, pid}
   end
@@ -19,14 +19,14 @@ defmodule Player.Server do
 
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
     World.new_player(world, pid)
-    Observable.observe(Clock, pid)
+    :timer.apply_interval(Constants.clock_interval, GenServer, :cast, [pid, {:tick}])
     {:ok, pid}
   end
 
   def start_link(world, false) do
     {:ok, pid} = GenServer.start_link(__MODULE__, %Player{ world: world})
     World.new_player(world, pid)
-    Observable.observe(Clock, pid)
+    :timer.apply_interval(Constants.clock_interval, GenServer, :cast, [pid, {:tick}])
     {:ok, pid}
   end
 
