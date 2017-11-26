@@ -12,7 +12,8 @@ defmodule Bullet do
     x:          0,
     y:          0,
     direction:  :left,
-    color: "#ffffff"
+    color:      "#ffffff",
+    timestamp:  0
   ]
 
 end

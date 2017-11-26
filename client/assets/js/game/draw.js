@@ -18,25 +18,36 @@ function invertColor(hexTripletColor) {
 }
 // Ok the rest is my code
 
-function drawPlayer(player) {
-  dummy_ctx.fillStyle = player.color;
+function drawPlayer({
+    x: x,
+    y: y,
+    radius: radius,
+    timestamp: t,
+    color: color,
+    direction: direction,
+    speed: speed
+  }, current_time) {
+
+  const dx = speed;
+  const dy = 0;
+  dummy_ctx.fillStyle = color;
   dummy_ctx.beginPath();
-  dummy_ctx.arc(player.x, player.y, player.radius, 0, 2 * Math.PI);
+  dummy_ctx.arc(x, y, radius, 0, 2 * Math.PI);
   dummy_ctx.fill();
 
-  dummy_ctx.fillStyle = invertColor(player.color)
-  switch(player.direction) {
+  dummy_ctx.fillStyle = invertColor(color)
+  switch(direction) {
     case "left":
-      dummy_ctx.fillRect(player.x, player.y, -player.radius, 2)
+      dummy_ctx.fillRect(x, y, -radius, 1)
       break;
     case "right":
-      dummy_ctx.fillRect(player.x, player.y, player.radius, 2)
+      dummy_ctx.fillRect(x, y,  radius, 1)
       break;
     case "up":
-      dummy_ctx.fillRect(player.x, player.y, 2, -player.radius)
+      dummy_ctx.fillRect(x, y,  1, -radius)
       break;
     case "down":
-      dummy_ctx.fillRect(player.x, player.y, 2, player.radius)
+      dummy_ctx.fillRect(x, y,  1,  radius)
       break;
   }
 }
@@ -48,12 +59,13 @@ function drawBullet(bullet) {
     dummy_ctx.fill();
 }
 
-
 function draw({players: players, bullets: bullets}) {
   dummy_ctx.fillStyle = "#000000";
   dummy_ctx.fillRect(0, 0, 500, 500);
-  players.forEach(drawPlayer);
-  bullets.forEach(drawBullet);
+  const timestamp = new Date().getTime();
+  console.log(timestamp)
+  players.forEach((player) => drawPlayer(player, timestamp));
+  bullets.forEach((bullet) => drawBullet(bullet, timestamp));
   ctx.drawImage(dummy_canvas, 0, 0);
 }
 

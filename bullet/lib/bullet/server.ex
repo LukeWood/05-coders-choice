@@ -3,12 +3,12 @@ defmodule Bullet.Server do
 
   alias Bullet.Impl, as: Impl
   def start_link() do
-    {:ok, pid} = GenServer.start_link(__MODULE__, %Bullet{})
-    Observable.observe(Clock, pid)
-    {:ok, pid}
+    start_link(%Bullet{})
   end
 
   def start_link(state) do
+    {_, _, millis} = :os.timestamp()
+    state = Map.put(state, :timestamp, millis)
     {:ok, pid} = GenServer.start_link(__MODULE__, state)
     Observable.observe(Clock, pid)
     {:ok, pid}
