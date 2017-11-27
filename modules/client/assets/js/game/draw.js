@@ -33,7 +33,8 @@ function drawPlayer({
     "direction": direction,
     "speed": speed,
     "clock_interval": clock_interval,
-    "moving": moving
+    "moving": moving,
+    "age": age
   }, current_time) {
   const dx = speed * (current_time - timestamp) / clock_interval;
   if(moving) {
@@ -55,24 +56,28 @@ function drawPlayer({
   x = validate_value(x, radius);
   y = validate_value(y, radius);
 
+  const inner_age = age/200;
+
   dummy_ctx.strokeStyle = color;
   dummy_ctx.beginPath();
-  dummy_ctx.arc(x, y, radius, 0, 2 * Math.PI);
+  dummy_ctx.arc(x, y, radius, 0, (age/200) * 2 * Math.PI);
   dummy_ctx.stroke();
+
+  let rad = inner_age * radius
 
   dummy_ctx.fillStyle = invertColor(color)
   switch(direction) {
     case "left":
-      dummy_ctx.fillRect(x, y, -radius,  1)
+      dummy_ctx.fillRect(x, y, -rad,  1)
       break;
     case "right":
-      dummy_ctx.fillRect(x, y,  radius,  1)
+      dummy_ctx.fillRect(x, y,  rad,  1)
       break;
     case "up":
-      dummy_ctx.fillRect(x, y,  1, -radius)
+      dummy_ctx.fillRect(x, y,  1, -rad)
       break;
     case "down":
-      dummy_ctx.fillRect(x, y,  1,  radius)
+      dummy_ctx.fillRect(x, y,  1,  rad)
       break;
   }
 }
