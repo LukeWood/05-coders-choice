@@ -7,9 +7,10 @@ class StateHandler {
 
     this.bullets = [];
 
+    this.uuid = null;
     input.push("init")
-    .receive("ok", (player) => {
-          console.log(player);
+    .receive("ok", ({uuid: uuid}) => {
+      this.uuid = uuid;
     });
 
     this.listen();
@@ -40,8 +41,11 @@ class StateHandler {
     setInterval(() => render_function(this.players, this.bullets), 30);
   }
 
-  handle_action() {
-
+  handle_action(key) {
+    if(!(this.uuid)) {
+      return
+    }
+    this.players[this.uuid].direction = key.toLowerCase().replace("arrow", "");
   }
 }
 
