@@ -8,18 +8,6 @@ dummy_canvas.height = canvas.height;
 const dummy_ctx = dummy_canvas.getContext("2d");
 const width = canvas.width;
 const height = canvas.height;
-// Not my code btw
-function invertColor(hexTripletColor) {
-    var color = hexTripletColor;
-    color = color.substring(1);           // remove #
-    color = parseInt(color, 16);          // convert to integer
-    color = 0xFFFFFF ^ color;             // invert three bytes
-    color = color.toString(16);           // convert to hex
-    color = ("000000" + color).slice(-6); // pad with leading zeros
-    color = "#" + color;                  // prepend #
-    return color;
-}
-// Ok the rest is my code
 
 function validate_x(x, radius) {
   return Math.min(width - radius, Math.max(x, radius))
@@ -68,19 +56,19 @@ function drawPlayer({
 
   let rad = inner_age * radius
 
-  dummy_ctx.fillStyle = invertColor(color)
+  dummy_ctx.fillStyle = color
   switch(direction) {
     case "left":
-      dummy_ctx.fillRect(x, y, -rad,  1)
+      dummy_ctx.fillRect(x, y-1, -rad,  2)
       break;
     case "right":
-      dummy_ctx.fillRect(x, y,  rad,  1)
+      dummy_ctx.fillRect(x, y-1,  rad,  2)
       break;
     case "up":
-      dummy_ctx.fillRect(x, y,  1, -rad)
+      dummy_ctx.fillRect(x-1, y,  2, -rad)
       break;
     case "down":
-      dummy_ctx.fillRect(x, y,  1,  rad)
+      dummy_ctx.fillRect(x-1, y,  2,  rad)
       break;
   }
 }
