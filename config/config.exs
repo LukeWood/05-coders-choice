@@ -10,8 +10,8 @@ config :player,
   reload: 10
 
 config :world,
-  width:  500,
-  height: 500,
+  width:  750,
+  height: 750,
   interval: 10
 
 import_config("../modules/client/config/config.exs")

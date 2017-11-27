@@ -18,7 +18,17 @@ defmodule Player.Impl do
     player
   end
 
+  def tick(player = %{age: age}) when age < 200 do
+    Map.put(player, :age, age+1) |>
+    inner_tick()
+  end
+
   def tick(player) do
+    inner_tick(player)
+  end
+
+
+  defp inner_tick(player) do
     player |>
     Move.move |>
     shoot_if_shooting |>

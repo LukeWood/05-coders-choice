@@ -5,9 +5,13 @@ end
 
 defimpl Peek, for: Any do
 
+  defp sanitize(state) do
+    Map.drop(state, [:world])
+  end
+
   def peek(pid) do
     if Process.alive? pid do
-      GenServer.call(pid, {:peek})
+      GenServer.call(pid, {:peek}) |> sanitize()
     else
       nil
     end

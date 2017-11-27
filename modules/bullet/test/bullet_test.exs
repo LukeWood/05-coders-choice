@@ -12,7 +12,6 @@ defmodule BulletTest do
       end
 
       test "created to mirror a players" do
-        # nil world pid
         {:ok, pid} = Bullet.new(%{x: 100, y: 100, direction: :right}, nil)
         tick()
         assert Peek.peek(pid) |> Map.get(:x) == 100 + Application.get_env(:bullet, :speed)

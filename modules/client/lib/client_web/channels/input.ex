@@ -10,6 +10,10 @@ defmodule Client.Input do
       { :ok, socket }
     end
 
+    def handle_in("init", _msg, socket = %{player: player}) do
+      {:reply, {:ok, Peek.peek(player)}, socket}
+    end
+
     def handle_in("key_up", _msg, socket = %{player: player}) do
       Player.action(player, :stop)
       ClientWeb.Endpoint.broadcast("updates", "player", Peek.peek(player))

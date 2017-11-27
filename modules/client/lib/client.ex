@@ -19,4 +19,14 @@ defmodule Client do
     }
   end
 
+  def bundle_item(env, item, value) do
+    Atom.to_string(env)<>"_"<>Atom.to_string(item)<>"="<>Integer.to_string(value)
+  end
+
+  def bundle_config() do
+    _player_config = Application.get_all_env(:player)
+    _bullet_config = Application.get_all_env(:bullet)
+    #player_config ++ bullet_config
+  end
+
 end
