@@ -26,13 +26,16 @@ defmodule Bullet.Server do
     Impl.die(state)
     {:stop, :normal, nil}
   end
-  def handle_cast({:tick}, state = %{lifetime: 0}) do
+  def handle_cast({:tick}, state = %{xPlifetime: 0}) do
     state = Impl.tick(state)
     {:stop, :normal, state}
   end
-  def handle_cast({:tick}, state ) do
-    new_state = Impl.tick(state)
-    {:noreply, new_state}
+  def handle_cast({:tick}, state = %{x: x, y: y} ) do
+    if(x > Application.get_env(:world, :width) || y > Application.get_env(:world, :height)) do
+      {:stop, :normal, Impl.die(state)}
+    else
+      {:noreply, Impl.tick(state)}
+    end
   end
 
 end
