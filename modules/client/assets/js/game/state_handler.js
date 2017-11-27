@@ -30,7 +30,7 @@ class StateHandler {
       })
     }
 
-    setInterval(update_players, 100);
+    setInterval(update_players, 50);
     setInterval(update_bullets, 50);
   }
 

@@ -55,10 +55,10 @@ function drawPlayer({
   x = validate_value(x, radius);
   y = validate_value(y, radius);
 
-  dummy_ctx.fillStyle = color;
+  dummy_ctx.strokeStyle = color;
   dummy_ctx.beginPath();
   dummy_ctx.arc(x, y, radius, 0, 2 * Math.PI);
-  dummy_ctx.fill();
+  dummy_ctx.stroke();
 
   dummy_ctx.fillStyle = invertColor(color)
   switch(direction) {
@@ -88,13 +88,14 @@ function draw(players, bullets) {
 
   players = Object.keys(players).map((uuid) => players[uuid]);
 
-  dummy_ctx.fillStyle = "#000000";
+  dummy_ctx.fillStyle = "#ffffff";
   dummy_ctx.fillRect(0, 0, 500, 500);
 
   const server_time = game_time();
+  dummy_ctx.lineWidth = 2;
   players.forEach((player) => drawPlayer(player, server_time));
   bullets.forEach((bullet) => drawBullet(bullet, server_time));
-  
+
   ctx.drawImage(dummy_canvas, 0, 0);
 }
 
