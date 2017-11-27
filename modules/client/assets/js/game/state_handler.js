@@ -1,4 +1,4 @@
-import join_channel from './socket';
+import { updates } from './socket';
 import game_time from './time_sync';
 
 class StateHandler {
@@ -7,23 +7,24 @@ class StateHandler {
 
     this.bullets = [];
 
-    this.channel = join_channel("updates");
+    updates
 
     this.listen();
     this.start_drawing(render_function);
   }
 
+
   listen() {
-    this.channel.on("player", (player) => this.players[player.id] = player);
+    updates.on("player", (player) => this.players[player.id] = player);
 
     let update_bullets = () => {
-      this.channel.push("bullets")
-        .receive("ok", ({bullets: bullets}) => {
-          this.bullets = bullets;
-      })
+      updates.push("bullets")
+      .receive("ok", ({bullets: bullets}) => {
+        this.bullets = bullets;
+      });
     }
     let update_players = () => {
-      this.channel.push("players")
+      updates.push("players")
         .receive("ok", ({players: players}) => {
           this.players = players;
       })

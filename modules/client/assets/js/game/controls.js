@@ -1,4 +1,4 @@
-import join_channel from './socket';
+import { input } from './socket';
 
 const valid_key_codes = new Set(
   ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']
@@ -16,7 +16,6 @@ valid_key_codes.add(ENTER_KEY);
 
 class Controls {
   constructor(state_handler) {
-    this.channel = join_channel("input");
     this.state_handler = state_handler;
     window.addEventListener("keydown", this.keyHandler.bind(this), true);
     window.addEventListener("keyup", this.keyUpHandler.bind(this), true);
@@ -38,14 +37,14 @@ class Controls {
     if(!valid)
       return;
     if(e.key == last_pressed) {
-      this.channel.push("key_up");
+      input.push("key_up");
       last_pressed = null;
     }
     e.preventDefault();
   }
 
   trigger_send(key) {
-    this.channel.push(key);
+    input.push(key);
     this.state_handler.handle_action(key);
   }
 }
