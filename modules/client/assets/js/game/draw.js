@@ -6,7 +6,8 @@ const dummy_canvas = document.createElement("canvas");
 dummy_canvas.width = canvas.width;
 dummy_canvas.height = canvas.height;
 const dummy_ctx = dummy_canvas.getContext("2d");
-
+const width = canvas.width;
+const height = canvas.height;
 // Not my code btw
 function invertColor(hexTripletColor) {
     var color = hexTripletColor;
@@ -20,10 +21,12 @@ function invertColor(hexTripletColor) {
 }
 // Ok the rest is my code
 
-function validate_value(x, radius) {
-  return Math.min(500 - radius, Math.max(x, radius))
+function validate_x(x, radius) {
+  return Math.min(width - radius, Math.max(x, radius))
 }
-
+function validate_y(y, radius) {
+  return Math.min(height - radius, Math.max(y, radius))
+}
 function drawPlayer({
     "x": x,
     "y": y,
@@ -53,8 +56,8 @@ function drawPlayer({
         break;
     }
   }
-  x = validate_value(x, radius);
-  y = validate_value(y, radius);
+  x = validate_x(x, radius);
+  y = validate_y(y, radius);
 
   const inner_age = age/200;
 
@@ -94,7 +97,7 @@ function draw(players, bullets) {
   players = Object.keys(players).map((uuid) => players[uuid]);
 
   dummy_ctx.fillStyle = "#ffffff";
-  dummy_ctx.fillRect(0, 0, 500, 500);
+  dummy_ctx.fillRect(0, 0, width, height);
 
   const server_time = game_time();
   dummy_ctx.lineWidth = 2;
