@@ -24,8 +24,8 @@ defmodule Client do
   end
 
   def bundle_config() do
-    player_config = Application.get_all_env(:player)
-    bullet_config = Application.get_all_env(:bullet)
+    _player_config = Application.get_all_env(:player)
+    _bullet_config = Application.get_all_env(:bullet)
     #player_config ++ bullet_config
   end
 
