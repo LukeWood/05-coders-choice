@@ -1,4 +1,4 @@
 
-<%= Client.bundle_config() %>
+<meta id="config">
 <canvas id="game" width="<%= Application.get_env(:world, :width) %>" height="<%= Application.get_env(:world, :height) %>">
 </canvas>

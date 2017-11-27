@@ -26,11 +26,7 @@ defmodule Client do
   def bundle_config() do
     player_config = Application.get_all_env(:player)
     bullet_config = Application.get_all_env(:bullet)
-    #bundled_config = Enum.map(player_config, fn {item, value} ->
-    #  bundle_item(:player, item, value)
-    #end)
-    #IO.inspect bullet_config
-    "<meta id=\"config\">"
+    #player_config ++ bullet_config
   end
 
 end
