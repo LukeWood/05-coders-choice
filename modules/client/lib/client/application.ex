@@ -8,7 +8,7 @@ defmodule Client.Application do
     Client.start
 
     children = [
-      supervisor(ClientWeb.Endpoint, []),
+      supervisor(ClientWeb.Endpoint, [])
     ]
 
     opts = [strategy: :one_for_one, name: Client.Supervisor]

@@ -13,4 +13,8 @@ function join_channel(channel_name) {
   return channel;
 }
 
-export default join_channel;
+let input = join_channel("input");
+let updates = join_channel("updates");
+let sync = join_channel("sync");
+
+export {input, updates, sync}

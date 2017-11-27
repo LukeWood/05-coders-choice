@@ -15,24 +15,14 @@ defmodule Bullet.Server do
   end
 
   def handle_call({:peek}, _from, state) do
-    {:reply, Map.drop(state, [:world]), state}
+    {:reply, state, state}
   end
 
-  def handle_cast({:tick}, state = %{x: x}) when x < 0 do
-    Impl.die(state)
-    {:stop, :normal, nil}
-  end
-  def handle_cast({:tick}, state = %{y: y}) when y < 0 do
-    Impl.die(state)
-    {:stop, :normal, nil}
-  end
   def handle_cast({:tick}, state = %{lifetime: 0}) do
-    state = Impl.tick(state)
-    {:stop, :normal, state}
+    {:stop, :normal, Impl.tick(state)}
   end
-  def handle_cast({:tick}, state ) do
-    new_state = Impl.tick(state)
-    {:noreply, new_state}
+  def handle_cast({:tick}, state) do
+    {:noreply, Impl.tick(state)}
   end
 
 end

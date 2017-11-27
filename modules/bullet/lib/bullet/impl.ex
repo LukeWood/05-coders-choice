@@ -1,17 +1,18 @@
 defmodule Bullet.Impl do
 
-  def distance(x1, x2, y1, y2) do
-    :math.sqrt(
-      :erlang.abs((x1-x2)*(x1-x2) - (y1-y2)*(y1-y2))
-    )
+  defp distance(x1, x2, y1, y2) do
+    dx = x1-x2
+    dy = y1-y2
+    (dx*dx) + (dy*dy)
   end
 
-  defp did_collide?(x1, x2, y1, y2, radius) do
-    distance(x1, x2, y1, y2) < radius + Application.get_env(:bullet, :radius)
+  defp did_collide?(x1, x2, y1, y2) do
+    rad = Application.get_env(:player, :radius) + Application.get_env(:bullet, :radius)
+    distance(x1, x2, y1, y2) < rad*rad
   end
 
-  defp inner_filter(x1, y1, %{x: x2, y: y2, radius: radius}) do
-    did_collide?(x1, x2, y1, y2, radius)
+  defp inner_filter(x1, y1, %{x: x2, y: y2}) do
+    did_collide?(x1, x2, y1, y2)
   end
   defp find_collisions(x1, y1, pid) do
     inner_filter(x1, y1, GenServer.call(pid, {:peek}))
@@ -40,15 +41,36 @@ defmodule Bullet.Impl do
     decrement_lifetime
   end
 
-  def tick(%{lifetime: 0}, _) do
+  defp reverse(state = %{direction: :left}) do
+    Map.put(state, :direction, :right)
+  end
+  defp reverse(state = %{direction: :right}) do
+    Map.put(state, :direction, :left)
+  end
+  defp reverse(state = %{direction: :up}) do
+    Map.put(state, :direction, :down)
+  end
+  defp reverse(state = %{direction: :down}) do
+    Map.put(state, :direction, :up)
+  end
+
+  def tick(state = %{x: x, y: y}) do
+    if(x > Application.get_env(:world, :width) || y > Application.get_env(:world, :height) || y < 0 || x < 0) do
+      reverse(state) |> inner_tick()
+    else
+      inner_tick(state)
+    end
+  end
+
+  def inner_tick(%{lifetime: 0}, _) do
     die(self())
   end
 
-  def tick(state = %{world: nil}) do
+  def inner_tick(state = %{world: nil}) do
     update_bullet(state)
   end
 
-  def tick(state = %{world: world}) do
+  def inner_tick(state = %{world: world}) do
     calculate_collisions(state, World.players(world)) |>
     apply_collisions(world)
     update_bullet(state)

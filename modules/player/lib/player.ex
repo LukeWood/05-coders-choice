@@ -15,6 +15,7 @@ defmodule Player do
     color:          "#cc00ff",
     world:          nil,
     timestamp:      0,
+    age:            0,
     speed:          Application.get_env(:player, :speed),
     clock_interval: Application.get_env(:world, :interval)
   ]
