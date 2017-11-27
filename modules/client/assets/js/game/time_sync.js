@@ -1,4 +1,4 @@
-import { sync } from './socket';
+import { sync } from './channels';
 
 let sync_time = 0;
 let server_time = 0;

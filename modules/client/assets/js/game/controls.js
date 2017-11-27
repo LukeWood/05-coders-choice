@@ -1,4 +1,4 @@
-import { input } from './socket';
+import { input } from './channels';
 
 const valid_key_codes = new Set(
   ['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' ', '']

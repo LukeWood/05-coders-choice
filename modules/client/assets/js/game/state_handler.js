@@ -1,4 +1,4 @@
-import { updates } from './socket';
+import { updates } from './channels';
 import game_time from './time_sync';
 
 class StateHandler {
