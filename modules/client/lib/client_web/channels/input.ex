@@ -11,7 +11,7 @@ defmodule Client.Input do
     end
 
     def handle_in("init", _msg, socket = %{player: player}) do
-      {:reply, {:ok, player}, socket}
+      {:reply, {:ok, Peek.peek(player)}, socket}
     end
 
     def handle_in("key_up", _msg, socket = %{player: player}) do

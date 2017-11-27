@@ -1,4 +1,4 @@
-import { updates } from './channels';
+import { updates, input } from './channels';
 import game_time from './time_sync';
 
 class StateHandler {
@@ -7,12 +7,14 @@ class StateHandler {
 
     this.bullets = [];
 
-    updates
+    input.push("init")
+    .receive("ok", (player) => {
+          console.log(player);
+    });
 
     this.listen();
     this.start_drawing(render_function);
   }
-
 
   listen() {
     updates.on("player", (player) => this.players[player.id] = player);
