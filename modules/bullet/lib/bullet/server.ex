@@ -18,24 +18,11 @@ defmodule Bullet.Server do
     {:reply, Map.drop(state, [:world]), state}
   end
 
-  def handle_cast({:tick}, state = %{x: x}) when x < 0 do
-    Impl.die(state)
-    {:stop, :normal, nil}
+  def handle_cast({:tick}, state = %{lifetime: 0}) do
+    {:stop, :normal, Impl.tick(state)}
   end
-  def handle_cast({:tick}, state = %{y: y}) when y < 0 do
-    Impl.die(state)
-    {:stop, :normal, nil}
-  end
-  def handle_cast({:tick}, state = %{xPlifetime: 0}) do
-    state = Impl.tick(state)
-    {:stop, :normal, state}
-  end
-  def handle_cast({:tick}, state = %{x: x, y: y} ) do
-    if(x > Application.get_env(:world, :width) || y > Application.get_env(:world, :height)) do
-      {:stop, :normal, Impl.die(state)}
-    else
-      {:noreply, Impl.tick(state)}
-    end
+  def handle_cast({:tick}, state) do
+    {:noreply, Impl.tick(state)}
   end
 
 end

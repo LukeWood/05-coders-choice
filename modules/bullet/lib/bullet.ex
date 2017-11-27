@@ -7,7 +7,7 @@ defmodule Bullet do
 
   defstruct [
     world: nil,
-    lifetime:   100,
+    lifetime:   500,
     radius:     Application.get_env(:bullet, :radius),
     x:          0,
     y:          0,

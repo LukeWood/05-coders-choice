@@ -1,7 +1,4 @@
 import game_time from './time_sync';
-import config from './config';
-
-console.log(config);
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");

@@ -41,15 +41,36 @@ defmodule Bullet.Impl do
     decrement_lifetime
   end
 
-  def tick(%{lifetime: 0}, _) do
+  defp reverse(state = %{direction: :left}) do
+    Map.put(state, :direction, :right)
+  end
+  defp reverse(state = %{direction: :right}) do
+    Map.put(state, :direction, :left)
+  end
+  defp reverse(state = %{direction: :up}) do
+    Map.put(state, :direction, :down)
+  end
+  defp reverse(state = %{direction: :down}) do
+    Map.put(state, :direction, :up)
+  end
+
+  def tick(state = %{x: x, y: y}) do
+    if(x > Application.get_env(:world, :width) || y > Application.get_env(:world, :height) || y < 0 || x < 0) do
+      reverse(state) |> inner_tick()
+    else
+      inner_tick(state)
+    end
+  end
+
+  def inner_tick(%{lifetime: 0}, _) do
     die(self())
   end
 
-  def tick(state = %{world: nil}) do
+  def inner_tick(state = %{world: nil}) do
     update_bullet(state)
   end
 
-  def tick(state = %{world: world}) do
+  def inner_tick(state = %{world: world}) do
     calculate_collisions(state, World.players(world)) |>
     apply_collisions(world)
     update_bullet(state)
